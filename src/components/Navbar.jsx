@@ -9,8 +9,8 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "All Classes", href: "/classes" },
-    { name: "Community Forum", href: "/forum" },
+    { name: "All Classes", href: "/all-classes" },
+    { name: "Community Forum", href: "/community-forum" },
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/register"
+              href="/auth/signup"
               className="px-6 py-3 rounded-lg bg-[#ff5a1f] hover:bg-[#ff6b35] text-white font-semibold transition-all duration-300"
             >
               Join Now
