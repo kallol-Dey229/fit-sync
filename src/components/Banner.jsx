@@ -14,10 +14,10 @@ export default function Banner() {
                 }}
             />
 
-            {/* Dark Overlay */}
+            
             <div className="absolute inset-0 bg-linear-to-r from-[#050816] via-[#050816]/90 to-[#050816]/60" />
 
-            {/* Grid */}
+           
             <div
                 className="absolute inset-0"
                 style={{
