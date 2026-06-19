@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { Flame } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown } from "@heroui/react";
@@ -18,9 +18,11 @@ export default function Navbar() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+
   const handleSignOut = async () => {
 
     await authClient.signOut();
+    redirect('/auth/signin');
 
   }
 
@@ -62,7 +64,7 @@ export default function Navbar() {
 
             {
               user ? <>
-                <p className="font-bold text-blue-800">Hi, {user.name}</p>
+                <p className="max-w-32 whitespace-normal wrap-break-word text-center font-bold text-blue-800 leading-5">Hi, {user.name}!</p>
 
                 <Link href="/dashboard">
                   <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
