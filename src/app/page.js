@@ -2,6 +2,7 @@
 import Banner from "@/components/Banner";
 import StatsSection from "@/components/StatsSection";
 import { Zap } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -42,10 +43,10 @@ export default function Home() {
         </p>
 
 
-        <button className="bg-orange-600 hover:bg-orange-700 text-white font-black px-8 py-4 rounded-none flex items-center gap-2 transition-colors duration-200 uppercase tracking-wider text-sm cursor-pointer">
+        <Link href="/auth/signup" className="bg-orange-600 hover:bg-orange-700 text-white font-black px-8 py-4 rounded-none flex items-center gap-2 transition-colors duration-200 uppercase tracking-wider text-sm cursor-pointer">
           Start Today — Free
           <Zap className="w-4 h-4 fill-white" />
-        </button>
+        </Link>
       </section>
     </div>
   );

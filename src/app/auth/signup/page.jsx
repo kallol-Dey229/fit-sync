@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import {
-  Button, Card, Description, FieldError, Form, Input, Label, Separator, TextField
-} from "@heroui/react";
+import { Button, Card, Description, FieldError, Form, Input, Label, Separator, TextField } from "@heroui/react";
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -30,7 +28,7 @@ export default function SignUpPage() {
   const [success, setSuccess] = useState("");
   const [apiError, setApiError] = useState("");
 
-  const [role, setRole] = useState("seeker");
+  const [role, setRole] = useState("member");
 
   const OnSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +45,7 @@ export default function SignUpPage() {
       return;
     }
 
-    const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
+    // const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
 
     try {
       setLoading(true);
@@ -58,7 +56,7 @@ export default function SignUpPage() {
         role,
         password: user.password,
         image: user.image,
-        plan
+        // plan
       });
 
       if (error) {
@@ -101,7 +99,7 @@ export default function SignUpPage() {
             <Flame className="w-6 h-6 text-white fill-white" />
           </div>
           <h1 className="text-3xl font-black uppercase tracking-tight text-white">
-            Fit<span className="text-orange-600">Sync</span> Account
+            Create Account
           </h1>
           <p className="mt-2 text-sm text-gray-400">
             Join FitSync and start your journey today!
@@ -243,14 +241,14 @@ export default function SignUpPage() {
             {/* Role Selection */}
             <div className="flex flex-col gap-2 mt-1">
               <Label className="text-gray-300 text-xs font-bold uppercase tracking-wider">Role</Label>
-              <RadioGroup defaultValue="seeker" name="role" orientation="horizontal" onChange={(value) => setRole(value)}>
-                <Radio value="seeker">
+              <RadioGroup defaultValue="member" name="role" orientation="horizontal" onChange={(value) => setRole(value)}>
+                <Radio value="member">
                   <Radio.Control><Radio.Indicator /></Radio.Control>
-                  <Radio.Content><Label className="text-sm font-medium text-gray-200">Job Seeker</Label></Radio.Content>
+                  <Radio.Content><Label className="text-sm font-medium text-gray-200">Member</Label></Radio.Content>
                 </Radio>
-                <Radio value="recruiter">
+                <Radio value="trainer">
                   <Radio.Control><Radio.Indicator /></Radio.Control>
-                  <Radio.Content><Label className="text-sm font-medium text-gray-200">Recruiter</Label></Radio.Content>
+                  <Radio.Content><Label className="text-sm font-medium text-gray-200">Trainer</Label></Radio.Content>
                 </Radio>
               </RadioGroup>
             </div>
@@ -286,9 +284,9 @@ export default function SignUpPage() {
 
           {/* Bottom Link */}
           <div className="mt-8 text-center text-sm text-gray-400">
-            Already have an account?{" "}
+            Already have an account?{"  "}
             <Link
-              href={`/signin?redirect=${redirectTo}`}
+              href={`/auth/signin?redirect=${redirectTo}`}
               className="font-bold text-orange-500 hover:text-orange-400 underline transition-colors"
             >
               Sign In

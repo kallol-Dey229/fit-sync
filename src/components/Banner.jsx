@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export default function Banner() {
@@ -61,14 +62,14 @@ export default function Banner() {
 
                         {/* Buttons */}
                         <div className="flex flex-wrap gap-5 mt-10">
-                            <button className="bg-[#ff5a1f] hover:bg-[#ff6b35] transition-all duration-300 px-8 py-4 cursor-pointer rounded-lg text-white font-bold flex items-center gap-2 shadow-[0_0_25px_rgba(255,90,31,0.35)]">
+                            <Link href="/all-classes" className="bg-[#ff5a1f] hover:bg-[#ff6b35] transition-all duration-300 px-8 py-4 cursor-pointer rounded-lg text-white font-bold flex items-center gap-2 shadow-[0_0_25px_rgba(255,90,31,0.35)]">
                                 Explore Classes
                                 <ArrowRight size={18} />
-                            </button>
+                            </Link>
 
-                            <button className="border border-[#ff5a1f] text-white hover:bg-[#ff5a1f]/10 transition-all cursor-pointer duration-300 px-8 py-4 rounded-lg font-bold">
+                            <Link href="/auth/signup" className="border border-[#ff5a1f] text-white hover:bg-[#ff5a1f]/10 transition-all cursor-pointer duration-300 px-8 py-4 rounded-lg font-bold">
                                 Get Started
-                            </button>
+                            </Link>
                         </div>
                     </div>
 

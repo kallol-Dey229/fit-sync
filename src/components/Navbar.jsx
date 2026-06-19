@@ -50,7 +50,7 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-5">
             <Link
-              href="/login"
+              href="/auth/signin"
               className="text-[#8b8ca7] hover:text-white transition"
             >
               Sign In
