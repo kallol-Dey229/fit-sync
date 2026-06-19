@@ -65,35 +65,35 @@ export default function Navbar() {
                 <p className="font-bold text-blue-800">Hi, {user.name}</p>
 
                 <Link href="/dashboard">
-                <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
+                  <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
                 </Link>
 
 
-<Dropdown>
+                <Dropdown>
 
-            <Button className="rounded-full w-10 h-10" aria-label="Menu" variant="outline">
-                <Avatar>
-                    <Avatar.Image referrerPolicy="no-referrer" alt="user image" src={user?.image} />
-                    <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
-                </Avatar>
-            </Button>
+                  <Button className="rounded-full w-10 h-10" aria-label="Menu" variant="outline">
+                    <Avatar>
+                      <Avatar.Image referrerPolicy="no-referrer" alt="user image" src={user?.image} />
+                      <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+                    </Avatar>
+                  </Button>
 
-            <Dropdown.Popover className={'rounded-md'}>
+                  <Dropdown.Popover className={'rounded-md'}>
 
-                <Dropdown.Menu>
+                    <Dropdown.Menu>
 
-                    <Dropdown.Item id="profile" textValue="Profile">
+                      <Dropdown.Item id="profile" textValue="Profile">
                         <Link href="/profile" className="block w-full">
-                            Profile
+                          Profile
                         </Link>
-                    </Dropdown.Item>
+                      </Dropdown.Item>
 
 
-                </Dropdown.Menu>
+                    </Dropdown.Menu>
 
-            </Dropdown.Popover>
+                  </Dropdown.Popover>
 
-        </Dropdown>
+                </Dropdown>
 
 
 

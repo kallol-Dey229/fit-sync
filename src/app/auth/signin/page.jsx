@@ -3,16 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import {
-  Button,
-  Card,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  Separator,
-  TextField,
-} from "@heroui/react";
+import { Button, Card, FieldError, Form, Input, Label, Separator, TextField } from "@heroui/react";
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";

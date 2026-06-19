@@ -88,12 +88,12 @@ export default function SignUpPage() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#09090e] px-4 py-10">
 
-      {/* Orange Glow */}
+      
       <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-600/20 blur-[120px]" />
 
       <div className="relative w-full max-w-md">
 
-        {/* Heading & Logo */}
+        
         <div className="mb-8 text-center flex flex-col items-center">
           <div className="bg-orange-600 p-2 rounded mb-3">
             <Flame className="w-6 h-6 text-white fill-white" />
@@ -106,17 +106,17 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        {/* Card */}
+        
         <Card className="border border-white/10 bg-white/5 p-8 backdrop-blur-xl rounded-xl">
 
-          {/* API Error */}
+          
           {apiError && (
             <div className="mb-5 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
               {apiError}
             </div>
           )}
 
-          {/* Success */}
+          
           {success && (
             <div className="mb-5 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-400">
               {success}
