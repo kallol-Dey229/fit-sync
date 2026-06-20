@@ -31,7 +31,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="h-20 flex items-center justify-between">
 
-          {/* Logo */}
+          
           <Link href="/" className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-lg bg-[#ff5a1f] flex items-center justify-center">
               <Flame size={22} className="text-white" />
@@ -43,7 +43,7 @@ export default function Navbar() {
             </h1>
           </Link>
 
-          {/* Nav Links */}
+          
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((item) => (
               <Link
@@ -59,14 +59,14 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Actions */}
+          
           <div className="flex items-center gap-5">
 
             {
               user ? <>
                 <p className="max-w-32 whitespace-normal wrap-break-word text-center font-bold text-blue-800 leading-5">Hi, {user.name}!</p>
 
-                <Link href="/dashboard">
+                <Link href="/dashboard/member">
                   <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
                 </Link>
 
@@ -98,12 +98,10 @@ export default function Navbar() {
                 </Dropdown>
 
 
-
-
-
-
-
                 <Button onClick={handleSignOut} variant="danger" className={"rounded-lg"}>Sign Out</Button>
+
+
+
               </> :
                 <>
                   <Link
