@@ -74,7 +74,7 @@ export default function Navbar() {
                 <Dropdown>
 
                   <Button className="rounded-full w-10 h-10" aria-label="Menu" variant="outline">
-                    <Avatar>
+                    <Avatar className="bg-orange-600">
                       <Avatar.Image referrerPolicy="no-referrer" alt="user image" src={user?.image} />
                       <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
                     </Avatar>
@@ -85,9 +85,12 @@ export default function Navbar() {
                     <Dropdown.Menu>
 
                       <Dropdown.Item id="profile" textValue="Profile">
-                        <Link href="/profile" className="block w-full">
+                        <Link href="/profile" className="block ml-3 w-full">
                           Profile
                         </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Button onClick={handleSignOut} variant="secondary" className={"text-red-600"}>Sign Out</Button>
                       </Dropdown.Item>
 
 
@@ -98,7 +101,7 @@ export default function Navbar() {
                 </Dropdown>
 
 
-                <Button onClick={handleSignOut} variant="danger" className={"rounded-lg"}>Sign Out</Button>
+                
 
 
 

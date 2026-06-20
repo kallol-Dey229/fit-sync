@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { House, Bookmark, Heart, Medal, LayoutHeaderSideContent } from "@gravity-ui/icons";
 
-import { Avatar, Button, Chip, Drawer } from "@heroui/react";
+import { Avatar, Button, Chip, Drawer, Spinner } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
 
@@ -13,8 +13,18 @@ export function DashboardSidebar() {
 
     const pathname = usePathname();
 
-    const { data: session } = authClient.useSession();
+    const { data: session, isPending } = authClient.useSession();
+
+    if (isPending) {
+        return <div className="flex flex-col items-center gap-2">
+            <Spinner color="accent" />
+            <span className="text-xs text-muted">Accent</span>
+        </div>
+    }
+
     const user = session?.user;
+
+    console.log(user)
 
 
 
