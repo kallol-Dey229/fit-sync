@@ -12,7 +12,7 @@ import { FaUser } from "react-icons/fa6";
 const MyClassesPage = async () => {
     const trainerId = '6a3584fd29a7459d0cfb0c11'
     const classesData = await getClass(trainerId) || [];
-    console.log(classesData)
+    
   return (
     <div className="min-h-screen bg-[#0B0C10] text-white p-8">
       {/* Title */}
