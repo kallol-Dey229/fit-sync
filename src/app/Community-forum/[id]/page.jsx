@@ -11,7 +11,6 @@ export default async function CommunityForumDetailsPage({ params }) {
   const post = await getForumPostById(id);
   const comment = await getCommentById(id);
   
-  // const post = await getForumPostById(id); // Your DB call logic
 
   return (
     <div className="min-h-screen bg-[#07070a] py-10 px-4">

@@ -13,6 +13,11 @@ export const getAllClass = async () =>{
     return res.json();
 }
 
+export const getClassById = async (classId) =>{
+    const res = await fetch(`${baseUrl}/api/classes/${classId}`);
+    return res.json();
+}
+
 
 
 

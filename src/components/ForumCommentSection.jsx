@@ -128,11 +128,7 @@ export function ForumCommentsSection({ post, comment = [] }) {
             className="w-full bg-[#111116] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 resize-none focus:outline-none"
           />
 
-          <Button
-            type="submit"
-            disabled={!user}
-            className="bg-[#ff5a1f] text-white font-bold uppercase px-6 h-11"
-          >
+          <Button type="submit" disabled={!user} className="bg-[#ff5a1f] text-white font-bold uppercase px-6 h-11" >
             Post
           </Button>
         </div>

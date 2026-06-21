@@ -179,9 +179,9 @@ export default function AddClassForm() {
                             </TextField>
                         </div>
 
-                        {/* Duration & Difficulty Row */}
+                        
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* Duration Input */}
+                            
                             <TextField name="duration" isInvalid={!!errors.duration} className="flex flex-col gap-1.5 w-full">
                                 <Label className="text-xs font-semibold tracking-widest text-[#717694] uppercase">Duration</Label>
                                 <div className="relative flex items-center">
@@ -246,6 +246,22 @@ export default function AddClassForm() {
                                 </FieldError>
                             )}
                         </TextField>
+
+
+
+
+
+
+                        {/* schedule */}
+
+                        <TextField name="schedule" className="w-full">
+                                <Label className="text-xs font-semibold tracking-widest text-[#717694] uppercase">Schedule</Label>
+                                <div className="relative flex items-center">
+                                    <Clock size={16} className="absolute left-3 text-[#717694] pointer-events-none z-10" />
+                                    <Input placeholder="Sunday, monday" className={`${textInputClass} pl-9`} />
+                                </div>
+                                
+                            </TextField>
 
 
 
