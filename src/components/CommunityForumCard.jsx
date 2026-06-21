@@ -4,6 +4,7 @@ import { Card, Button, Chip } from "@heroui/react";
 import { format } from "date-fns";
 import { ThumbsUp, MessageSquare, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const CommunityForumCard = ({ post }) => {
   
@@ -66,6 +67,7 @@ const CommunityForumCard = ({ post }) => {
             </div>
           </div>
 
+          <Link href={`/community-forum/${post._id}`}>
           <Button 
             variant="light" 
             className="text-orange-600 hover:text-orange-500 font-black uppercase tracking-wider text-xs p-0 min-w-0 flex items-center gap-1"
@@ -73,6 +75,7 @@ const CommunityForumCard = ({ post }) => {
             Read More 
             <ChevronRight className="w-4 h-4" />
           </Button>
+          </Link>
         </div>
 
       </div>
