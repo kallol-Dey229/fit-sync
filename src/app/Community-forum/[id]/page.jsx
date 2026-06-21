@@ -1,6 +1,7 @@
 
 import { ForumCommentsSection } from "@/components/ForumCommentSection";
 import { ForumPostDetails } from "@/components/ForumPostDetails";
+import { getCommentById } from "@/lib/api/comments";
 import { getForumPostById } from "@/lib/api/posts";
 import Link from "next/link";
 
@@ -8,6 +9,7 @@ export default async function CommunityForumDetailsPage({ params }) {
   const { id } = await params;
   
   const post = await getForumPostById(id);
+  const comment = await getCommentById(id);
   
   // const post = await getForumPostById(id); // Your DB call logic
 
@@ -22,9 +24,9 @@ export default async function CommunityForumDetailsPage({ params }) {
           &lt; Back to Forum
         </Link>
 
-        {/* Layout Mounting Blocks */}
+        
         <ForumPostDetails post={post} />
-        <ForumCommentsSection comments={[]} />
+        <ForumCommentsSection post={post} comment={comment} />
       </div>
     </div>
   );
