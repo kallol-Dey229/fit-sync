@@ -52,6 +52,7 @@ export default function AddClassForm() {
             trainerName: user.name,
             trainerImage: user.image,
             status: "active",
+            role: user.role,
             isPubliclyVisible: true
         };
 

@@ -8,7 +8,3 @@ export const getClass = async (trainerId, status = 'active') =>{
 }
 
 
-export const getForumPosts = async (trainerId) =>{
-    const res = await fetch(`${baseUrl}/api/forum?trainerId=${trainerId}`);
-    return res.json();
-}

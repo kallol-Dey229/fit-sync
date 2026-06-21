@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { Form, Fieldset, TextField, Label, Input, Select, ListBox, TextArea, FieldError, Button } from "@heroui/react";
 
 import toast from "react-hot-toast";
-import { createForumPost } from "@/lib/actions/classes";
 import { authClient } from "@/lib/auth-client";
 import { ImagePlus } from "lucide-react";
+import { createForumPost } from "@/lib/actions/posts";
 
 
 
@@ -88,6 +88,7 @@ export default function AddForumPost() {
             trainerImage: user.image,
             photo: photoUrl,
             status: "active",
+            role: user.role,
             likes: 0,
             comments: 0,
             createdAt: new Date().toISOString(),

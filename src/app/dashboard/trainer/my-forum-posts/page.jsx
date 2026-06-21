@@ -1,6 +1,7 @@
-import { getForumPosts } from "@/lib/api/classes";
+
 import { ThumbsUp, MessageCircle, Trash2 } from "lucide-react";
 import { Button } from "@heroui/react";
+import { getForumPosts } from "@/lib/api/posts";
 
 const MyForumPostsPage = async () => {
   const trainerId = "6a3584fd29a7459d0cfb0c11";
