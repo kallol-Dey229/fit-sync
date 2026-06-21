@@ -6,9 +6,7 @@ import { ThumbsUp, MessageSquare, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const CommunityForumCard = ({ post }) => {
-  console.log(post);
-
-  if (!post) return null;
+  
 
   const formattedDate = post.createdAt ? format(new Date(post.createdAt), "MMM d, yyyy") : "Unknown Date";
   

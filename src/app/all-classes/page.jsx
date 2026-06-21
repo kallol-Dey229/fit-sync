@@ -1,6 +1,9 @@
+import AllClassesCard from "@/components/AllClassesCard";
+import { getAllClass } from "@/lib/api/classes";
 
 
-const AllClassesPage = () => {
+const AllClassesPage = async () => {
+    const allClasses = await getAllClass();
     return (
         <div className="mt-10 ml-5">
             <div >
@@ -16,6 +19,10 @@ const AllClassesPage = () => {
                     ALL CLASSES
                 </h2>
 
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {allClasses.map((classes)=><AllClassesCard key={classes._id} classes={classes}/>)}
             </div>
         </div>
     );

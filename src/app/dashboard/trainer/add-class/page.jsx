@@ -13,7 +13,7 @@ import {
     FieldError,
     Button
 } from "@heroui/react";
-import { DollarSign, Clock, Trophy, Layers } from "lucide-react";
+import { DollarSign, Clock, Trophy, Layers, ImagePlus } from "lucide-react";
 import toast from "react-hot-toast";
 import { createClass } from "@/lib/actions/classes";
 import { authClient } from "@/lib/auth-client";
@@ -23,6 +23,51 @@ export default function AddClassForm() {
 
     const { data: session, isPending } = authClient.useSession();
     const user = session?.user;
+
+    const [photoUrl, setPhotoUrl] = useState('');
+    const [fileName, setFileName] = useState("No file selected");
+    const [isUploading, setIsUploading] = useState(false);
+
+    const handlePhotoUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+
+        setFileName(file.name);
+
+        // Simple Validation
+        if (file.size > 5 * 1024 * 1024) {
+            setErrors(prev => ({ ...prev, photo: "File size exceeds 5MB limit" }));
+            return;
+        }
+
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            // Replace with your real IMGBB API key environmental variable injection
+            const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API;
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                setPhotoUrl(data.data.url);
+                setErrors(prev => ({ ...prev, photo: null }));
+            } else {
+                setErrors(prev => ({ ...prev, photo: "Upload failed. Try again." }));
+            }
+        } catch (err) {
+            setErrors(prev => ({ ...prev, photo: "Network error during photo upload" }));
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,6 +97,7 @@ export default function AddClassForm() {
             trainerName: user.name,
             trainerImage: user.image,
             status: "active",
+            photo: photoUrl,
             role: user.role,
             isPubliclyVisible: true
         };
@@ -166,6 +212,44 @@ export default function AddClassForm() {
                             </Select>
                         </div>
 
+
+                        {/* photo */}
+
+                        <TextField
+                            name="image"
+                            isInvalid={!!errors.image}
+                            className="flex flex-col gap-1.5 w-full"
+                        >
+                            <Label className="text-xs font-semibold tracking-widest text-[#717694] uppercase">
+                                Post Image
+                            </Label>
+
+                            <label
+                                htmlFor="image"
+                                className="flex items-center gap-3 cursor-pointer bg-[#1C1E30] border border-[#222538] rounded-xl px-4 py-3"
+                            >
+                                <ImagePlus size={18} />
+                                <span>{fileName}</span>
+                            </label>
+
+                            <input
+                                id="image"
+                                type="file"
+                                accept="image/*"
+                                hidden
+                                onChange={handlePhotoUpload}
+                            />
+
+                            {errors.image && (
+                                <FieldError className="text-xs text-danger mt-1">
+                                    {errors.image}
+                                </FieldError>
+                            )}
+                        </TextField>
+
+
+
+
                         {/* Description Textarea */}
                         <TextField name="description" isInvalid={!!errors.description} className="flex flex-col gap-1.5 w-full">
                             <Label className="text-xs font-semibold tracking-widest text-[#717694] uppercase">Description</Label>
@@ -184,7 +268,7 @@ export default function AddClassForm() {
                         type="submit"
                         className="w-full bg-[#FF4500] data-[hover=true]:bg-[#E03D00] text-white font-black tracking-widest uppercase rounded-xl h-12 text-sm shadow-lg transition-all"
                     >
-                        Submit Class
+                        {isUploading ? "Uploading Image..." : "Submit Class"}
                     </Button>
                 </Form>
 
