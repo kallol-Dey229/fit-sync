@@ -14,7 +14,7 @@ const AllClassesCard = ({ classes }) => {
     <Card className="w-full bg-[#111116] text-white border border-gray-800 rounded-xl overflow-hidden shadow-xl p-0 flex flex-col md:flex-row items-stretch">
       
       {/* Left/Top Image Section Wrapper */}
-      <div className="relative h-56 md:h-auto w-full md:w-[300px] shrink-0 overflow-hidden">
+      <div className="relative h-56 md:h-auto w-full md:w-75 shrink-0 overflow-hidden">
         <Image
           src={classes.photo}
           alt={classes.title || "Class cover image"}

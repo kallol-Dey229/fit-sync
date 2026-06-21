@@ -12,3 +12,9 @@ export const getAllForumPosts = async () =>{
     const res = await fetch(`${baseUrl}/api/forum`);
     return res.json();
 }
+
+
+export const getForumPostById = async (postId) =>{
+    const res = await fetch(`${baseUrl}/api/forum/${postId}`);
+    return res.json();
+}
