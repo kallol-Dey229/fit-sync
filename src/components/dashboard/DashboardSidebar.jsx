@@ -36,7 +36,7 @@ export function DashboardSidebar() {
         },
         {
             icon: Bookmark,
-            href: "/dashboard/booked-classes",
+            href: "/dashboard/member/booked-classes",
             label: "Booked Classes",
         },
         {
@@ -46,7 +46,7 @@ export function DashboardSidebar() {
         },
         {
             icon: Medal,
-            href: "/dashboard/apply-trainer",
+            href: "/dashboard/member/apply-trainer",
             label: "Apply as Trainer",
         },
     ];
