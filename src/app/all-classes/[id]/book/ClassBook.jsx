@@ -9,7 +9,7 @@ const ClassBook = ({ classes, user }) => {
     const classTitle = classes?.title || "Class Title";
     const classCategory = classes?.category || "Bootcamp";
     const classPrice = classes?.price || "0";
-    const classImage = classes?.image ||"no image available";
+    const classImage = classes?.image || "no image available";
     const trainerName = classes?.trainerName || "Trainer Name";
 
     const handleCheckout = () => {
@@ -19,9 +19,9 @@ const ClassBook = ({ classes, user }) => {
     return (
         <div className="min-h-screen text-white p-6 sm:p-12 font-sans flex flex-col items-center justify-start bg-[#06081f]">
             <div className="w-full max-w-5xl space-y-8">
-                
+
                 {/* Back Link */}
-                <button 
+                <button
                     onClick={() => window.history.back()}
                     className="flex items-center gap-2 text-xs font-mono text-[#717694] hover:text-[#F4F4F6] transition-colors hover:cursor-pointer"
                 >
@@ -41,7 +41,7 @@ const ClassBook = ({ classes, user }) => {
 
                 {/* Grid Layout Container */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-                    
+
                     {/* Left Card: Order Summary using HeroUI v3 Horizontal Setup */}
                     <Card className="md:col-span-7 bg-[#06081f] border border-[#222538] rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-stretch">
                         {/* Summary Thumbnail Image */}
@@ -49,7 +49,7 @@ const ClassBook = ({ classes, user }) => {
                             <Image
                                 src={classImage} alt={classTitle} height={50} width={50}
                                 className="pointer-events-none absolute inset-0 h-full w-full object-cover select-none">
-                            </Image> 
+                            </Image>
                         </div>
 
                         {/* Summary Metadata Details split across Header and Footer */}
@@ -91,13 +91,18 @@ const ClassBook = ({ classes, user }) => {
                         </div>
 
                         <Card.Footer className="p-0 w-full">
-                            <Button
-                                onPress={handleCheckout}
-                                className="w-full bg-[#FF4500] data-[hover=true]:bg-[#E03D00] text-white font-black tracking-widest uppercase rounded-xl h-12 text-sm shadow-lg transition-all flex items-center justify-center gap-2"
-                            >
-                                <Lock size={14} />
-                                Proceed to Checkout
-                            </Button>
+                            <form action="/api/checkout_sessions" method="POST" className="w-full">
+                                <section className="w-full">
+                                    <button
+                                        type="submit"
+                                        role="link"
+                                        className="w-full bg-[#FF4500] hover:bg-[#E03D00] text-white font-black rounded-lg flex items-center justify-center gap-3 px-4 py-3 hover:cursor-pointer"
+                                    >
+                                        <Lock size={14} />
+                                        Checkout
+                                    </button>
+                                </section>
+                            </form>
                         </Card.Footer>
                     </Card>
 
