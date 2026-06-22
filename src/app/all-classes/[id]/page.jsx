@@ -7,7 +7,7 @@ import Link from "next/link";
 export default async function AllClassDetailsPage({ params }) {
     const { id } = await params;
     const classes = await getClassById(id);
-    console.log(classes)
+    
 
     // Dynamic array verification for handling schedule maps safely
     const activeSchedule = Array.isArray(classes?.schedule) ? classes.schedule : [];
@@ -27,7 +27,7 @@ export default async function AllClassDetailsPage({ params }) {
 
             {/* Hero Header Banner Card section (Referencing layout properties from image_08c37c.png) */}
             <div className="relative w-full h-70 sm:h-90 rounded-3xl overflow-hidden mb-8 border border-gray-900 shadow-2xl">
-                <Image src={classes.photo} alt={classes.title} height={200} width={200} className="w-full h-full object-cover brightness-[0.4]"></Image>
+                <Image src={classes.image} alt={classes.title} height={200} width={200} className="w-full h-full object-cover brightness-[0.4]"></Image>
                 <div className="absolute inset-0 bg-linear-to-t from-[#09090b] via-transparent to-transparent" />
                 
                 {/* Overlay Text Details Row */}
@@ -94,7 +94,7 @@ export default async function AllClassDetailsPage({ params }) {
                                     <Calendar size={14} className="text-[#ff5a1f]" />
                                     <span className="text-[10px] font-mono uppercase tracking-wider">Schedule</span>
                                 </div>
-                                <span className="text-xs font-semibold text-gray-200 truncate">
+                                <span className="text-xs font-semibold text-gray-200 truncate text-wrap">
                                     {activeSchedule.length > 0 ? activeSchedule.slice(0, 3).join(', ') : "Flexible Dates"}
                                 </span>
                             </div>

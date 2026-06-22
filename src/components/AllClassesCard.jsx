@@ -17,7 +17,7 @@ const AllClassesCard = ({ classes }) => {
 
       <div className="relative h-56 md:h-auto w-full md:w-75 shrink-0 overflow-hidden">
         <Image
-          src={classes.photo}
+          src={classes.image}
           alt={classes.title || "Class cover image"}
           height={300}
           width={400}
@@ -27,7 +27,7 @@ const AllClassesCard = ({ classes }) => {
         <Chip
           variant="flat"
           className={`absolute top-4 left-4 font-mono text-xs uppercase tracking-widest rounded border ${classes.difficulty == "beginner"
-              ? "bg-green-500/10 text-green-400 border-green-500/20" : classes.difficulty === "intermediate" ? "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" : classes.difficulty === "advance" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-gray-500/10 text-gray-400 border-gray-500/20"
+              ? "bg-green-500/10 text-green-400 border-green-500/20" : classes.difficulty === "intermediate" ? "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" : classes.difficulty === "advanced" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-gray-500/10 text-gray-400 border-gray-500/20"
             }`}>
           {classes.difficulty}
         </Chip>
