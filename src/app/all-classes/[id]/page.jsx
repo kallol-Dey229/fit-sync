@@ -153,12 +153,16 @@ export default async function AllClassDetailsPage({ params }) {
 
                         
                         <div className="flex flex-col gap-3">
+                            
+                           <Link href={`/all-classes/${id}/book`}>
                             <Button 
                                 className="w-full bg-[#ff5a1f] hover:bg-[#e04f1a] text-white font-black uppercase tracking-wider text-xs h-12 rounded-xl transition-all shadow-lg shadow-[#ff5a1f]/10"
                                 size="lg"
                             >
-                                Book Now • ${classes?.price || "0"}
+                                Book Now
                             </Button>
+                           </Link>
+                           
                             
                             <Button
                                 variant="bordered"

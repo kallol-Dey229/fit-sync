@@ -40,13 +40,14 @@ export default function SignInPage() {
         password: user.password,
       });
 
-      if (data) {
-        toast.success("Signed in successfully");
-      }
-
+      
       if (error) {
         setApiError(error.message || "Invalid email or password");
         return;
+      }
+      
+      if (data) {
+        toast.success("Signed in successfully");
       }
 
       router.push(redirectTo);
