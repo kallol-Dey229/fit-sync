@@ -20,4 +20,12 @@ export const getClassById = async (classId) =>{
 
 
 
+export const getFavorites = async (userId) => {
+    if (!userId) return { success: false, data: [] };
+    const res = await fetch(`${baseUrl}/api/favorites?userId=${userId}`);
+    return res.json();
+}
+
+
+
 

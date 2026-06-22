@@ -1,4 +1,7 @@
+
+import FavoritesButton from "@/components/FavoritesButton";
 import { getClassById } from "@/lib/api/classes";
+import { getUserSession } from "@/lib/core/session";
 import { Card, Avatar, Button } from "@heroui/react";
 import { Clock, Users, Calendar, Award, User, Heart, ChevronLeft } from "lucide-react";
 import Image from "next/image";
@@ -7,6 +10,10 @@ import Link from "next/link";
 export default async function AllClassDetailsPage({ params }) {
     const { id } = await params;
     const classes = await getClassById(id);
+
+    const user = await getUserSession();
+
+    
     
 
     // Dynamic array verification for handling schedule maps safely
@@ -164,12 +171,12 @@ export default async function AllClassDetailsPage({ params }) {
                            </Link>
                            
                             
-                            <Button
-                                variant="bordered"
-                                className="w-full border-gray-800 hover:border-gray-700 hover:bg-gray-900/20 text-gray-400 hover:text-white font-bold text-xs h-11 rounded-xl transition-all"
-                            >
-                                <Heart size={14} className="mr-1 text-red-500/70" /> Add to Favorites
-                            </Button>
+                            
+
+                            <FavoritesButton classes={classes} user={user}/>
+                            
+                        
+
                         </div>
                     </Card>
 

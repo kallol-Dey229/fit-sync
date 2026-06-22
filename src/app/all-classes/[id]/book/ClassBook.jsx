@@ -7,14 +7,12 @@ import Image from "next/image";
 
 const ClassBook = ({ classes, user }) => {
     const classTitle = classes?.title || "Class Title";
-    const classCategory = classes?.category || "Bootcamp";
+    const classCategory = classes?.category || "category";
     const classPrice = classes?.price || "0";
     const classImage = classes?.image || "no image available";
     const trainerName = classes?.trainerName || "Trainer Name";
 
-    const handleCheckout = () => {
-        console.log("Redirecting user to Stripe checkout for:", classTitle);
-    };
+    
 
     return (
         <div className="min-h-screen text-white p-6 sm:p-12 font-sans flex flex-col items-center justify-start bg-[#06081f]">
@@ -45,7 +43,7 @@ const ClassBook = ({ classes, user }) => {
                     {/* Left Card: Order Summary using HeroUI v3 Horizontal Setup */}
                     <Card className="md:col-span-7 bg-[#06081f] border border-[#222538] rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-stretch">
                         {/* Summary Thumbnail Image */}
-                        <div className="relative h-[160px] w-full sm:w-[160px] shrink-0 overflow-hidden rounded-xl bg-[#1C1E30]">
+                        <div className="relative h-40 w-full sm:w-40 shrink-0 overflow-hidden rounded-xl bg-[#1C1E30]">
                             <Image
                                 src={classImage} alt={classTitle} height={50} width={50}
                                 className="pointer-events-none absolute inset-0 h-full w-full object-cover select-none">

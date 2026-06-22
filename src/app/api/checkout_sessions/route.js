@@ -19,6 +19,7 @@ export async function POST() {
         },
       ],
       mode: 'payment',
+      metadata: {},
       success_url: `${origin}/all-classes/success?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303)
@@ -29,3 +30,9 @@ export async function POST() {
     )
   }
 }
+
+
+
+
+
+

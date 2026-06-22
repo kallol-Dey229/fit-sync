@@ -31,7 +31,7 @@ export function DashboardSidebar() {
     const memberNavLinks = [
         {
             icon: House,
-            href: "/dashboard",
+            href: "/dashboard/member",
             label: "Overview",
         },
         {
@@ -41,7 +41,7 @@ export function DashboardSidebar() {
         },
         {
             icon: Heart,
-            href: "/dashboard/favorites",
+            href: "/dashboard/member/favorites",
             label: "Favorites",
         },
         {

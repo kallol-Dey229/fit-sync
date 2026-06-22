@@ -16,3 +16,18 @@ export const createClass = async (data) =>{
 }
 
 
+
+export const addToFavorites = async (data) =>{
+    const res = await fetch(`${baseUrl}/api/favorites`,{
+        method:'POST',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+
+        body:JSON.stringify(data)
+    });
+
+    return res.json();
+}
+
+
