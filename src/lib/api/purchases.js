@@ -14,4 +14,4 @@ export const getUserPurchases = async (email) => {
  
 export const getWriterSales = async (email) => {
   return serverFetch(`/api/sales?email=${email}`);
-};
+}; 

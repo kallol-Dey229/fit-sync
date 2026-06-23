@@ -6,7 +6,7 @@ import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const FavoritesCard = ({ favorites, onRemove }) => {
+const FavoritesCard = ({ favorites }) => {
 
     const { classId, classTitle, trainerName, image, price } = favorites || {};
 
@@ -42,8 +42,7 @@ const FavoritesCard = ({ favorites, onRemove }) => {
 
             
             <Button
-                isIconOnly
-                onClick={() => onRemove(classId)}
+                
                 variant="light"
                 aria-label="Remove from favorites"
                 className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 min-w-8 h-8 w-8 rounded-lg transition-colors"

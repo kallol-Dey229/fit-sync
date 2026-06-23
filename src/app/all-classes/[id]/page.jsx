@@ -24,7 +24,7 @@ export default async function AllClassDetailsPage({ params }) {
     const activeSchedule = Array.isArray(classes?.schedule) ? classes.schedule : [];
 
     return (
-        <div className="w-full min-h-screen bg-[#09090b] text-white py-8 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="w-full min-h-screen text-white py-8 px-4 sm:px-6 max-w-7xl mx-auto">
             
             
             <div className="mb-6">
