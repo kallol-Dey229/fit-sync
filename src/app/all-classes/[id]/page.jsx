@@ -1,9 +1,9 @@
-
 import FavoritesButton from "@/components/FavoritesButton";
 import { getClassById } from "@/lib/api/classes";
 import { getUserSession } from "@/lib/core/session";
+import { checkPurchase } from "@/lib/api/purchases";
 import { Card, Avatar, Button } from "@heroui/react";
-import { Clock, Users, Calendar, Award, User, Heart, ChevronLeft } from "lucide-react";
+import { Clock, Users, Calendar, Award, User, Heart, ChevronLeft, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,8 +13,12 @@ export default async function AllClassDetailsPage({ params }) {
 
     const user = await getUserSession();
 
-    
-    
+    // Only check purchase status if a user is signed in
+    let alreadyBooked = false;
+    if (user?.email) {
+        const { purchased } = await checkPurchase(id, user.email);
+        alreadyBooked = !!purchased;
+    }
 
     // Dynamic array verification for handling schedule maps safely
     const activeSchedule = Array.isArray(classes?.schedule) ? classes.schedule : [];
@@ -161,14 +165,25 @@ export default async function AllClassDetailsPage({ params }) {
                         
                         <div className="flex flex-col gap-3">
                             
-                           <Link href={`/all-classes/${id}/book`}>
-                            <Button 
-                                className="w-full bg-[#ff5a1f] hover:bg-[#e04f1a] text-white font-black uppercase tracking-wider text-xs h-12 rounded-xl transition-all shadow-lg shadow-[#ff5a1f]/10"
-                                size="lg"
-                            >
-                                Book Now
-                            </Button>
-                           </Link>
+                           {alreadyBooked ? (
+                                <Button
+                                    isDisabled
+                                    className="w-full bg-green-500/10 text-green-500 border border-green-500/30 font-black uppercase tracking-wider text-xs h-12 rounded-xl cursor-not-allowed flex items-center justify-center gap-2"
+                                    size="lg"
+                                >
+                                    <CheckCircle2 size={16} />
+                                    Already Booked
+                                </Button>
+                           ) : (
+                                <Link href={`/all-classes/${id}/book`}>
+                                    <Button 
+                                        className="w-full bg-[#ff5a1f] hover:bg-[#e04f1a] text-white font-black uppercase tracking-wider text-xs h-12 rounded-xl transition-all shadow-lg shadow-[#ff5a1f]/10"
+                                        size="lg"
+                                    >
+                                        Book Now
+                                    </Button>
+                                </Link>
+                           )}
                            
                             
                             

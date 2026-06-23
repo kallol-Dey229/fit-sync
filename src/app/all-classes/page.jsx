@@ -3,7 +3,7 @@ import { getAllClass } from "@/lib/api/classes";
 
 
 const AllClassesPage = async () => {
-    const allClasses = await getAllClass();
+    const allClasses = await getAllClass(); 
     return (
         <div className="mt-10 ml-5">
             <div >

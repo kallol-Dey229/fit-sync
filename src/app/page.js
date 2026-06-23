@@ -1,10 +1,13 @@
 
+import AllClassesCard from "@/components/AllClassesCard";
 import Banner from "@/components/Banner";
 import StatsSection from "@/components/StatsSection";
+import { getAllClass } from "@/lib/api/classes";
 import { Zap } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+   const allClasses = await getAllClass();
   return (
     <div >
       <Banner />
@@ -25,6 +28,9 @@ export default function Home() {
         FEATURED CLASSES
       </h2>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {allClasses.slice(0, 4).map((classes)=><AllClassesCard key={classes._id} classes={classes}/>)}
+            </div>
       </div>
 
 
