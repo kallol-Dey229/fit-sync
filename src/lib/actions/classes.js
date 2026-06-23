@@ -31,3 +31,18 @@ export const addToFavorites = async (data) =>{
 }
 
 
+
+export const removeFromFavorites = async (userId, classId) => {
+    const res = await fetch(`${baseUrl}/api/favorites`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId, classId })
+    });
+ 
+    return res.json();
+}
+
+
+

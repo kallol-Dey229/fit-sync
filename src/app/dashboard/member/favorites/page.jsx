@@ -16,7 +16,7 @@ const FavoritesPage = async () => {
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {favoritesList.map((favorites) => (
-                    <FavoritesCard favorites={favorites} key={favorites._id} />
+                    <FavoritesCard userId={userId} favorites={favorites} key={favorites._id} />
                 ))}
             </div>
         </div>

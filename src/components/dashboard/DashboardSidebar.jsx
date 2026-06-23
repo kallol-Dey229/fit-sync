@@ -26,7 +26,15 @@ export function DashboardSidebar() {
 
     const user = session?.user;
 
-    
+    if (!user) {
+        return (
+            <div className="flex h-screen items-center justify-center text-gray-400 text-sm">
+                Please sign in to view your dashboard.
+            </div>
+        );
+    }
+
+
 
     const memberNavLinks = [
         {
@@ -51,7 +59,7 @@ export function DashboardSidebar() {
         },
     ];
 
-  
+
 
     const trainerNavLinks = [
         {
@@ -81,7 +89,7 @@ export function DashboardSidebar() {
         },
     ];
 
-   
+
 
     const adminNavLinks = [
         {
@@ -126,7 +134,7 @@ export function DashboardSidebar() {
         },
     ];
 
-    
+
 
     const navLinksMap = {
         member: memberNavLinks,
@@ -134,13 +142,15 @@ export function DashboardSidebar() {
         admin: adminNavLinks,
     };
 
+    // Fallback to memberNavLinks if the role is missing or doesn't match a known key,
+    // so the sidebar never tries to .map() over undefined.
     const navItems = navLinksMap[user?.role] || memberNavLinks;
 
-    
+
 
     const navContent = (
         <>
-            
+
 
             <div className="mb-6 border-b border-white/10 pb-6">
                 <div className="flex items-center gap-4">
@@ -160,13 +170,13 @@ export function DashboardSidebar() {
                             variant="flat"
                             className="mt-2 uppercase"
                         >
-                            {user?.role}
+                            {user?.role || "member"}
                         </Chip>
                     </div>
                 </div>
             </div>
 
-            
+
 
             <nav className="flex flex-col gap-2">
                 {navItems.map((item) => {
@@ -195,13 +205,13 @@ export function DashboardSidebar() {
 
     return (
         <>
-            {/* Desktop */}
+
 
             <aside className="hidden h-screen w-72 shrink-0 border-r border-white/10 bg-[#06071B] p-6 lg:block">
                 {navContent}
             </aside>
 
-            {/* Mobile */}
+
 
             <Drawer>
                 <Button

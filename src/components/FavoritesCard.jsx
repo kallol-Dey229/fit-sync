@@ -1,19 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Button } from '@heroui/react';
 import { Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { removeFromFavorites } from '@/lib/actions/classes';
 
-const FavoritesCard = ({ favorites }) => {
+const FavoritesCard = ({ favorites, userId }) => {
 
     const { classId, classTitle, trainerName, image, price } = favorites || {};
+    const [removing, setRemoving] = useState(false);
+    const [removed, setRemoved] = useState(false);
+
+    const handleRemove = async () => {
+        if (!userId || !classId || removing) return;
+
+        setRemoving(true);
+        try {
+            const res = await removeFromFavorites(userId, classId);
+            if (res?.success) {
+                setRemoved(true);
+            } else {
+                console.error('Failed to remove favorite:', res?.message);
+                setRemoving(false);
+            }
+        } catch (err) {
+            console.error('Remove favorite error:', err);
+            setRemoving(false);
+        }
+    };
+
+    if (removed) return null;
 
     return (
         <Card className="bg-[#0b0d19] border border-[#1e2235] p-4 rounded-2xl flex flex-row items-center gap-4 max-w-2xl w-full relative group">
-            
-           
+
+
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 overflow-hidden rounded-xl">
                 <Image
                     src={image}
@@ -23,14 +46,14 @@ const FavoritesCard = ({ favorites }) => {
                 />
             </div>
 
-           
+
             <div className="flex flex-col flex-1 min-w-0 justify-center">
                 <Link href={`/all-classes/${classId}`}>
                     <h3 className="text-base sm:text-lg font-bold text-white tracking-wide hover:text-[#ff5a1f] transition-colors truncate">
                         {classTitle || "Untitled Bootcamp"}
                     </h3>
                 </Link>
-                
+
                 <p className="text-xs sm:text-sm text-gray-400 font-medium mt-1 truncate">
                     {trainerName || "Expert Trainer"}
                 </p>
@@ -40,12 +63,13 @@ const FavoritesCard = ({ favorites }) => {
                 </p>
             </div>
 
-            
+
             <Button
-                
+                onClick={handleRemove}
+                isDisabled={removing}
                 variant="light"
                 aria-label="Remove from favorites"
-                className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 min-w-8 h-8 w-8 rounded-lg transition-colors"
+                className="absolute top-4 right-4 text-gray-500 hover:text-red-500 hover:bg-red-500/10 min-w-8 h-8 w-8 rounded-lg transition-colors disabled:opacity-50"
             >
                 <Trash2 size={18} />
             </Button>

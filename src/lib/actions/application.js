@@ -13,3 +13,24 @@ export const applyAsTrainer = async (data) =>{
 
     return res.json();
 }
+
+
+
+
+export const getMyApplication = async (userId) => {
+    const res = await fetch(`${baseUrl}/api/application/user/${userId}`);
+    return res.json();
+}
+ 
+ 
+export const updateApplicationStatus = async (applicationId, status) => {
+    const res = await fetch(`${baseUrl}/api/application/${applicationId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+    });
+ 
+    return res.json();
+}
