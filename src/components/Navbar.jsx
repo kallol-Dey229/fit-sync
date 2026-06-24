@@ -7,6 +7,7 @@ import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown } from "@heroui/react";
 
 export default function Navbar() {
+
   const pathname = usePathname();
 
   const navLinks = [
@@ -66,9 +67,16 @@ export default function Navbar() {
               user ? <>
                 <p className="max-w-32 whitespace-normal wrap-break-word text-center font-bold text-blue-800 leading-5">Hi, {user.name}!</p>
 
-                <Link href="/dashboard/member">
+                {
+                  user.role === 'member'?
+                  <Link href="/dashboard/member">
+                  <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
+                </Link> : user.role === 'trainer' ? <Link href="/dashboard/trainer">
+                  <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
+                </Link> : user.role === 'admin' && <Link href="/dashboard/admin">
                   <Button variant="secondary" className={"text-gray-400 rounded-lg"}>Dashboard</Button>
                 </Link>
+                }
 
 
                 <Dropdown>

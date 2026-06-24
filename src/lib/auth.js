@@ -30,12 +30,7 @@ export const auth = betterAuth({
         default:"member"
       }
     }
-  },
-
-  // plugins: [
-  //       admin()
-  //   ]
-
+  }
 });
 
 

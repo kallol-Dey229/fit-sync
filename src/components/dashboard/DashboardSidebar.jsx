@@ -142,8 +142,7 @@ export function DashboardSidebar() {
         admin: adminNavLinks,
     };
 
-    // Fallback to memberNavLinks if the role is missing or doesn't match a known key,
-    // so the sidebar never tries to .map() over undefined.
+  
     const navItems = navLinksMap[user?.role] || memberNavLinks;
 
 
