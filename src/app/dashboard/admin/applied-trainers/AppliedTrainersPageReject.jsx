@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { updateApplicationStatus } from "@/lib/actions/application";
 
 const AppliedTrainersPageReject = ({ application }) => {
+    
     const [isRejecting, setIsRejecting] = useState(false);
     const router = useRouter();
 
@@ -43,7 +44,7 @@ const AppliedTrainersPageReject = ({ application }) => {
             </Button>
             <AlertDialog.Backdrop>
                 <AlertDialog.Container>
-                    <AlertDialog.Dialog className="sm:max-w-[400px]">
+                    <AlertDialog.Dialog className="sm:max-w-100">
                         <AlertDialog.CloseTrigger />
                         <AlertDialog.Header>
                             <AlertDialog.Icon status="danger" />
