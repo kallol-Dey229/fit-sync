@@ -1,54 +1,74 @@
-'use server'
+// 'use server'
 
+// import { revalidatePath } from "next/cache";
+
+// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+// export const createComment = async (data) =>{
+//     const res = await fetch(`${baseUrl}/api/comments`,{
+//         method:'POST',
+//         headers:{
+//             'Content-Type' : 'application/json'
+//         },
+
+//         body:JSON.stringify(data)
+//     });
+
+//     return res.json();
+// }
+
+
+
+
+// export const deleteComment = async (
+//   id,
+//   forumPostId,
+//   userId
+// ) => {
+
+//   const res = await fetch(
+//     `${baseUrl}/api/comments/${id}`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         userId,
+//       }),
+//     }
+//   );
+
+//   const result = await res.json();
+
+//   if (result.deletedCount > 0) {
+//     revalidatePath(`/community-forum/${forumPostId}`);
+//   }
+
+//   return result;
+// };
+
+
+
+
+
+
+'use server';
+
+import { serverMutation } from "../core/server";
 import { revalidatePath } from "next/cache";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+export const createComment = async (data) =>
+    await serverMutation("/api/comments", data);
 
-export const createComment = async (data) =>{
-    const res = await fetch(`${baseUrl}/api/comments`,{
-        method:'POST',
-        headers:{
-            'Content-Type' : 'application/json'
-        },
+export const deleteComment = async (id,forumPostId,userId) => {
 
-        body:JSON.stringify(data)
-    });
+    const result = await serverMutation(`/api/comments/${id}`,{ userId },"DELETE");
 
-    return res.json();
-}
-
-
-
-
-export const deleteComment = async (
-  id,
-  forumPostId,
-  userId
-) => {
-
-  const res = await fetch(
-    `${baseUrl}/api/comments/${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId,
-      }),
+    if (result.deletedCount > 0) {
+        revalidatePath(`/community-forum/${forumPostId}`);
     }
-  );
 
-  const result = await res.json();
-
-  if (result.deletedCount > 0) {
-    revalidatePath(`/community-forum/${forumPostId}`);
-  }
-
-  return result;
+    return result;
 };
-
-
-
-
 

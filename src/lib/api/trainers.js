@@ -1,15 +1,18 @@
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
  
-export const getAllTrainers = async () => {
-  const res = await fetch(`${baseUrl}/api/trainers`, {
-    cache: "no-store",
-  });
+// export const getAllTrainers = async () => {
+//   const res = await fetch(`${baseUrl}/api/trainers`, {
+//     cache: "no-store",
+//   });
+//   const text = await res.text();
 
-  console.log("Status:", res.status);
-  console.log("URL:", res.url);
+//   return JSON.parse(text);
+// };
 
-  const text = await res.text();
-  console.log(text);
 
-  return JSON.parse(text);
-};
+
+
+import { serverFetch } from "../core/server";
+
+export const getAllTrainers = () =>
+    serverFetch("/api/trainers");

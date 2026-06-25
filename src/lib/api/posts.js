@@ -1,20 +1,10 @@
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+import { serverFetch } from "../core/server";
 
+export const getAllForumPosts = () =>
+    serverFetch("/api/forum");
 
-export const getForumPosts = async (trainerId) =>{
-    const res = await fetch(`${baseUrl}/api/my/forum?trainerId=${trainerId}`);
-    return res.json();
-}
+export const getForumPosts = (trainerId) =>
+    serverFetch(`/api/my/forum?trainerId=${trainerId}`);
 
-
-
-export const getAllForumPosts = async () =>{
-    const res = await fetch(`${baseUrl}/api/forum`);
-    return res.json();
-}
-
-
-export const getForumPostById = async (postId) =>{
-    const res = await fetch(`${baseUrl}/api/forum/${postId}`);
-    return res.json();
-}
+export const getForumPostById = (id) =>
+    serverFetch(`/api/forum/${id}`);

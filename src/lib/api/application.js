@@ -1,7 +1,7 @@
+import { protectedFetch } from "../core/server";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+export const getAllApplication = () =>
+    protectedFetch("/api/application");
 
-export const getAllApplication = async () =>{
-    const res = await fetch(`${baseUrl}/api/application`);
-    return res.json();
-}
+export const getMyApplication = (userId) =>
+    protectedFetch(`/api/application/user/${userId}`);

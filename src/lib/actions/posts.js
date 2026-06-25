@@ -1,15 +1,24 @@
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const createForumPost = async (data) =>{
-    const res = await fetch(`${baseUrl}/api/forum`,{
-        method:'POST',
-        headers:{
-            'Content-Type' : 'application/json'
-        },
+// export const createForumPost = async (data) =>{
+//     const res = await fetch(`${baseUrl}/api/forum`,{
+//         method:'POST',
+//         headers:{
+//             'Content-Type' : 'application/json'
+//         },
 
-        body:JSON.stringify(data)
-    });
+//         body:JSON.stringify(data)
+//     });
 
-    return res.json();
-}
+//     return res.json();
+// }
+
+
+
+'use server';
+
+import { serverMutation } from "../core/server";
+
+export const createForumPost = async (data) =>
+    await serverMutation("/api/forum", data);

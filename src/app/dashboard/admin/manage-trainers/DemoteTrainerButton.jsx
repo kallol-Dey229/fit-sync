@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { Button } from "@heroui/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { demoteTrainerToUser } from "@/lib/actions/trainers";
+import { demoteTrainerToUser } from "@/lib/api/users";
+
 
 
 const DemoteTrainerButton = ({ trainer }) => {
