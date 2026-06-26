@@ -83,9 +83,10 @@ export default function AddForumPost() {
         setErrors({});
         const payload = {
             ...data,
-            trainerId: user.id,
-            trainerName: user.name,
-            trainerImage: user.image,
+            Id: user.id,
+            Name: user.name,
+            role: user.role,
+            Image: user.image,
             photo: photoUrl,
             status: "active",
             role: user.role,

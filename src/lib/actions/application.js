@@ -37,10 +37,25 @@
 
 
 
-'use server'
+"use server";
 
-import { serverMutation } from "../core/server";
+import { serverFetch, serverMutation } from "../core/server";
 
+// Create trainer application
+export const applyAsTrainer = async (data) => {
+    return await serverMutation("/api/application", data);
+};
+
+// Get current user's application
+export const getMyApplication = async (userId) => {
+    return await serverFetch(`/api/application/user/${userId}`);
+};
+
+// Update application status (Admin)
 export const updateApplicationStatus = async (id, status) => {
-    return await serverMutation(`/api/application/${id}`,{ status },"PATCH");
+    return await serverMutation(
+        `/api/application/${id}`,
+        { status },
+        "PATCH"
+    );
 };

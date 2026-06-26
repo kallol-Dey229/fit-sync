@@ -6,6 +6,11 @@ const client = new MongoClient(process.env.MONGO_DB_URI);
 const db = client.db(process.env.AUTH_DB_NAME);
 
 export const auth = betterAuth({
+  baseURL: "https://fit-sync-gamma-puce.vercel.app",
+  trustedOrigins: [
+    "https://fit-sync-gamma-puce.vercel.app",
+    "http://localhost:3000"
+  ],
   database: mongodbAdapter(db, {
 
     client
@@ -27,7 +32,7 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       role: {
-        default:"member"
+        default: "member"
       }
     }
   }

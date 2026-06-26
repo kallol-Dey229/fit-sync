@@ -52,11 +52,11 @@
 
 import { serverMutation } from "../core/server";
 
-export const createClass = (data) =>
-    serverMutation("/api/classes", data);
+export const createClass = async (data) =>
+    await serverMutation("/api/classes", data);
 
-export const addToFavorites = (data) =>
-    serverMutation("/api/favorites", data);
+export const addToFavorites = async (data) =>
+    await serverMutation("/api/favorites", data);
 
-export const removeFromFavorites = (userId, classId) =>
-    serverMutation("/api/favorites",{ userId, classId },"DELETE");
+export const removeFromFavorites = async (userId, classId) =>
+    await serverMutation("/api/favorites",{ userId, classId },"DELETE");
