@@ -1,9 +1,10 @@
 "use client";
 
 import { deleteForumPost } from "@/lib/actions/posts";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
-
+import DeletePostDialog from "./DeletePostDialog";
 
 const formatDate = (value) => {
     if (!value) return "";
@@ -15,19 +16,21 @@ const formatDate = (value) => {
         year: "numeric",
     });
 };
- 
+
 const PostsList = ({ initialPosts }) => {
     const [posts, setPosts] = useState(initialPosts);
     const [deletingId, setDeletingId] = useState(null);
+    const [pendingPost, setPendingPost] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleDelete = async (post) => {
-        const postId = post._id;
+    const requestDelete = (post) => {
+        setError(null);
+        setPendingPost(post);
+    };
 
-        const confirmed = window.confirm(
-            `Delete "${post.title || "this post"}"? This also removes its comments. This can't be undone.`
-        );
-        if (!confirmed) return;
+    const confirmDelete = async () => {
+        if (!pendingPost) return;
+        const postId = pendingPost._id;
 
         setError(null);
         setDeletingId(postId);
@@ -39,6 +42,7 @@ const PostsList = ({ initialPosts }) => {
             setError("Couldn't delete the post. Try again.");
         } finally {
             setDeletingId(null);
+            setPendingPost(null);
         }
     };
 
@@ -72,9 +76,11 @@ const PostsList = ({ initialPosts }) => {
                         style={{ opacity: isDeleting ? 0.5 : 1 }}
                     >
                         <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-white/5 sm:h-20 sm:w-20">
-                            {post.image ? (
+                            {post.photo ? (
                                 <Image
-                                    src={post.photo}  height={100} width={100}
+                                    src={post.photo}
+                                    height={100}
+                                    width={100}
                                     alt="post image"
                                     className="h-full w-full object-cover"
                                 />
@@ -95,18 +101,26 @@ const PostsList = ({ initialPosts }) => {
                             {role}
                         </span>
 
-                        <button
+                        <Button
                             type="button"
-                            onClick={() => handleDelete(post)}
-                            disabled={isDeleting}
+                            variant="danger"
+                            onPress={() => requestDelete(post)}
+                            isDisabled={isDeleting}
                             className="flex shrink-0 items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             <TrashIcon />
                             {isDeleting ? "Deleting…" : "Delete"}
-                        </button>
+                        </Button>
                     </article>
                 );
             })}
+
+            <DeletePostDialog
+                post={pendingPost}
+                isDeleting={deletingId !== null}
+                onConfirm={confirmDelete}
+                onClose={() => setPendingPost(null)}
+            />
         </div>
     );
 };
