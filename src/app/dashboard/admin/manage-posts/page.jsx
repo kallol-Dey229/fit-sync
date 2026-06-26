@@ -16,4 +16,4 @@ const ManagePostsPage = async () => {
     );
 };
 
-export default ManagePostsPage;
+export default ManagePostsPage; 

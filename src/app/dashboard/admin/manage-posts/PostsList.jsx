@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteForumPost } from "@/lib/actions/posts";
+import Image from "next/image";
 import { useState } from "react";
 
 
@@ -14,7 +15,7 @@ const formatDate = (value) => {
         year: "numeric",
     });
 };
-
+ 
 const PostsList = ({ initialPosts }) => {
     const [posts, setPosts] = useState(initialPosts);
     const [deletingId, setDeletingId] = useState(null);
@@ -60,8 +61,8 @@ const PostsList = ({ initialPosts }) => {
             {posts.map((post) => {
                 const postId = post._id;
                 const isDeleting = deletingId === postId;
-                const authorName = post.authorName || post.userName || "Unknown author";
-                const role = (post.authorRole || post.role || "member").toUpperCase();
+                const authorName = post.Name || "Unknown";
+                const role = (post.role || "member").toUpperCase();
                 const dateLabel = formatDate(post.createdAt || post.date);
 
                 return (
@@ -70,11 +71,11 @@ const PostsList = ({ initialPosts }) => {
                         className="flex items-center gap-4 rounded-xl border border-white/10 bg-[#13131f] p-4 transition-opacity sm:p-5"
                         style={{ opacity: isDeleting ? 0.5 : 1 }}
                     >
-                        <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-white/5 sm:h-20 sm:w-20">
+                        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-white/5 sm:h-20 sm:w-20">
                             {post.image ? (
-                                <img
-                                    src={post.image}
-                                    alt=""
+                                <Image
+                                    src={post.photo}  height={100} width={100}
+                                    alt="post image"
                                     className="h-full w-full object-cover"
                                 />
                             ) : null}
@@ -90,7 +91,7 @@ const PostsList = ({ initialPosts }) => {
                             </p>
                         </div>
 
-                        <span className="hidden flex-shrink-0 rounded-md border border-white/15 px-3 py-1.5 font-mono text-xs tracking-wide text-slate-300 sm:inline-block">
+                        <span className="hidden shrink-0 rounded-md border border-white/15 px-3 py-1.5 font-mono text-xs tracking-wide text-slate-300 sm:inline-block">
                             {role}
                         </span>
 
@@ -98,7 +99,7 @@ const PostsList = ({ initialPosts }) => {
                             type="button"
                             onClick={() => handleDelete(post)}
                             disabled={isDeleting}
-                            className="flex flex-shrink-0 items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex shrink-0 items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             <TrashIcon />
                             {isDeleting ? "Deleting…" : "Delete"}
