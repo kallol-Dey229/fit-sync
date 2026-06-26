@@ -1,14 +1,26 @@
 "use client";
 
 import { AlertDialog, Button } from "@heroui/react";
-import { deleteForumPost } from "@/lib/actions/posts";
-import { Trash } from "lucide-react";
 
-const DeletePostDialog = ({ post, onDeleted }) => {
+import toast from "react-hot-toast";
+import { Trash } from "lucide-react";
+import { deleteClass } from "@/lib/actions/classes";
+
+const DeleteClassDialog = ({ classItem, onDeleted }) => {
 
     const handleDelete = async () => {
-        await deleteForumPost(post._id);
-        onDeleted(post._id);
+        const result = await deleteClass(classItem._id);
+
+        if (result?.error) {
+            toast.error(result.message || "Couldn't delete the class.");
+            return;
+        }
+
+        if (result?.deletedCount > 0) {
+            onDeleted(classItem._id);
+        } else {
+            toast.error("Couldn't delete the class.");
+        }
     };
 
     return (
@@ -16,7 +28,7 @@ const DeletePostDialog = ({ post, onDeleted }) => {
             <Button
                 type="button"
                 variant="danger"
-                className="flex shrink-0 items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20"
+                className="flex items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-1.5 text-sm font-semibold text-red-400 hover:bg-red-500/20"
             >
                 <Trash />
                 Delete
@@ -28,13 +40,13 @@ const DeletePostDialog = ({ post, onDeleted }) => {
                         <AlertDialog.CloseTrigger />
                         <AlertDialog.Header>
                             <AlertDialog.Icon status="danger" />
-                            <AlertDialog.Heading>Delete this post?</AlertDialog.Heading>
+                            <AlertDialog.Heading>Delete this class?</AlertDialog.Heading>
                         </AlertDialog.Header>
                         <AlertDialog.Body>
                             <p>
                                 This will permanently delete{" "}
-                                <strong>{post.title || "this post"}</strong> and all of its
-                                comments. This action cannot be undone.
+                                <strong>{classItem.title || "this class"}</strong>. This
+                                action cannot be undone.
                             </p>
                         </AlertDialog.Body>
                         <AlertDialog.Footer>
@@ -42,7 +54,7 @@ const DeletePostDialog = ({ post, onDeleted }) => {
                                 Cancel
                             </Button>
                             <Button variant="danger" onPress={handleDelete}>
-                                Delete Post
+                                Delete Class
                             </Button>
                         </AlertDialog.Footer>
                     </AlertDialog.Dialog>
@@ -53,5 +65,4 @@ const DeletePostDialog = ({ post, onDeleted }) => {
 };
 
 
-
-export default DeletePostDialog;
+export default DeleteClassDialog;

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function AllClassDetailsPage({ params }) {
+    
     const { id } = await params;
     const classes = await getClassById(id);
 
@@ -36,7 +37,7 @@ export default async function AllClassDetailsPage({ params }) {
                 </Link>
             </div>
 
-            {/* Hero Header Banner Card section (Referencing layout properties from image_08c37c.png) */}
+            
             <div className="relative w-full h-70 sm:h-90 rounded-3xl overflow-hidden mb-8 border border-gray-900 shadow-2xl">
                 <Image src={classes.image} alt={classes.title} height={200} width={200} className="w-full h-full object-cover brightness-[0.4]"></Image>
                 <div className="absolute inset-0 bg-linear-to-t from-[#09090b] via-transparent to-transparent" />

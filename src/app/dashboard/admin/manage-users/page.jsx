@@ -21,7 +21,7 @@ export default async function ManageUsersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060713] text-white p-8 font-sans">
+    <div className="min-h-screen text-white p-8 font-sans">
 
 
       <h1 className="text-3xl font-black tracking-wider uppercase mb-8 text-[#F4F4F6]">
@@ -29,7 +29,7 @@ export default async function ManageUsersPage() {
       </h1>
 
 
-      <div className="w-full bg-[#090A15] border border-[#161826] rounded-2xl overflow-hidden p-2 shadow-2xl">
+      <div className="w-full border border-[#161826] rounded-2xl overflow-hidden p-2 shadow-2xl">
         <Table className="w-full text-left bg-transparent border-none">
           <Table.ScrollContainer>
             <Table.Content aria-label="User Management Table" className="min-w-200">

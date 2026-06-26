@@ -114,7 +114,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, Card } from "@heroui/react";
+import { Card } from "@heroui/react";
 import { ArrowLeft, Lock, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 

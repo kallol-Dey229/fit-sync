@@ -41,7 +41,7 @@ const CommunityForumCard = ({ post }) => {
         
         {/* Meta Info */}
         <span className="text-xs font-mono text-gray-500">
-          {post.trainerName || "Anonymous"} • {formattedDate}
+          {post.Name || "Anonymous"} • {formattedDate}
         </span>
         
         {/* Title */}

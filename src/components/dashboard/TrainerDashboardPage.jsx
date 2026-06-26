@@ -1,23 +1,20 @@
-
-import { getFavorites } from '@/lib/api/classes';
-import { getUserSession } from '@/lib/core/session';
+"use client"
 import { Avatar, Card, Chip } from "@heroui/react";
 import { Bookmark, Heart } from "lucide-react";
 
-const MemberDashboardPage = async () => {
+const TrainerDashboardPage = ({user, classes}) => {
 
-    const user = await getUserSession();
-    const favoriteClasses = await getFavorites(user.id);
+    const thisMonth = new Date().getMonth();
 
 
-    const favorites = favoriteClasses.data;
-    
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    const newClassesThisMonth = classes.filter(c => {
 
-    const newSaves = favorites.filter((favorite) => {
-        return new Date(favorite.createdAt) >= oneMonthAgo;
+        if (!c.createdAt) return false;
+
+        return new Date(c.createdAt).getMonth() === thisMonth;
+
     }).length;
+
 
     return (
         <div className="space-y-8 mt-5 md:mt-10">
@@ -39,15 +36,15 @@ const MemberDashboardPage = async () => {
 
                         <div>
                             <p className="text-lg text-gray-400">
-                                Booked Classes
+                                Classes Created
                             </p>
 
                             <h2 className="text-4xl font-bold text-white">
-                                3
+                                {classes.length}
                             </h2>
 
                             <p className="mt-1 text-green-400">
-                                +1 this month
+                                +{newClassesThisMonth} this month
                             </p>
                         </div>
 
@@ -63,15 +60,15 @@ const MemberDashboardPage = async () => {
 
                         <div>
                             <p className="text-lg text-gray-400">
-                                Favorite Classes
+                                Total Student Enrolled
                             </p>
 
                             <h2 className="text-4xl font-bold text-white">
-                                {favoriteClasses.data.length}
+                                5
                             </h2>
 
                             <p className="mt-1 text-green-400">
-                                +{newSaves} new saves
+                                2 new saves
                             </p>
                         </div>
 
@@ -80,11 +77,11 @@ const MemberDashboardPage = async () => {
 
             </div>
 
-            {/* Profile */}
+            
             <Card className="bg-[#0b0d26] border border-white/10 p-8">
 
                 <h2 className="mb-8 text-2xl font-bold text-white">
-                    Profile
+                    Details
                 </h2>
 
                 <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:text-left">
@@ -120,6 +117,7 @@ const MemberDashboardPage = async () => {
                                 {user?.role}
                             </Chip>
 
+                           
 
                         </div>
 
@@ -133,4 +131,5 @@ const MemberDashboardPage = async () => {
     );
 };
 
-export default MemberDashboardPage;
+export default TrainerDashboardPage;
+

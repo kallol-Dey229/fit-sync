@@ -91,7 +91,7 @@ export function ForumCommentsSection({ post, comment = [] }) {
                     Reply
                   </button>
 
-                  {/* Only comment owner can see Delete button */}
+                  
                   {user?.id === item.userId && (
                     <CommentDelete
                       commentId={item._id}

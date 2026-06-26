@@ -1,4 +1,4 @@
-import { serverFetch, serverMutation } from "../core/server";
+import { protectedFetch, serverFetch, serverMutation } from "../core/server";
 
 export const createPurchase = async (purchase) => {
   return serverMutation("/api/purchases", purchase);
@@ -12,6 +12,9 @@ export const getUserPurchases = async (email) => {
   return serverFetch(`/api/purchases?email=${email}`);
 };
  
-export const getWriterSales = async (email) => {
-  return serverFetch(`/api/sales?email=${email}`);
-}; 
+
+
+
+export const getAllPurchases = async () => {
+  return protectedFetch("/api/purchases/all");
+};

@@ -1,87 +1,165 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Card } from "@heroui/react";
 import { Users, Dumbbell, BookOpen } from "lucide-react";
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from "recharts";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
-// Data structures matching your design exactly
-const metricData = [
-  {
-    title: "Total Users",
-    value: "2,418",
-    change: "+34 this week",
-    icon: Users,
-    iconBg: "bg-[#1C121A]",
-    iconColor: "text-[#FF4500]",
-  },
-  {
-    title: "Total Classes",
-    value: "48",
-    change: "",
-    icon: Dumbbell,
-    iconBg: "bg-[#251614]",
-    iconColor: "text-[#FF4500]",
-  },
-  {
-    title: "Total Bookings",
-    value: "8,204",
-    change: "+142 this week",
-    icon: BookOpen,
-    iconBg: "bg-[#211714]",
-    iconColor: "text-[#FF4500]",
-  },
+const COLORS = [
+  "#FF4500",
+  "#00E5FF",
+  "#FF9100",
+  "#76FF03",
+  "#D500F9",
+  "#FF1744",
+  "#00BFA5",
 ];
 
-const revenueData = [
-  { name: "Jan", revenue: 10000 },
-  { name: "Feb", revenue: 12500 },
-  { name: "Mar", revenue: 11000 },
-  { name: "Apr", revenue: 16000 },
-  { name: "May", revenue: 18000 },
-  { name: "Jun", revenue: 19000 },
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
-const categoryData = [
-  { name: "HIIT", value: 30, color: "#FF4500" },
-  { name: "Yoga", value: 25, color: "#00E5FF" },
-  { name: "Strength", value: 20, color: "#FF9100" },
-  { name: "Cardio", value: 15, color: "#76FF03" },
-  { name: "Mobility", value: 10, color: "#D500F9" },
-];
+const AdminDashboardHomePage = ({
+  users = [],
+  classes = [],
+  purchases = [],
+}) => {
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-const AdminDashboardHomePage = ({user}) => {
-    return (
-        <div className="min-h-screen bg-[#060713] text-white p-8 font-sans selection:bg-[#FF4500]/30">
-      
-      {/* Page Title */}
-      <h1 className="text-3xl font-black tracking-wider uppercase mb-8 text-[#F4F4F6]">
+  const newUsers = users.filter(
+    (user) => new Date(user.createdAt) >= oneWeekAgo
+  ).length;
+
+  const newBookings = purchases.filter(
+    (purchase) => new Date(purchase.createdAt) >= oneWeekAgo
+  ).length;
+
+  const metricData = [
+    {
+      title: "Total Users",
+      value: users.length.toLocaleString(),
+      change: `+${newUsers} this week`,
+      icon: Users,
+      iconBg: "bg-[#1C121A]",
+      iconColor: "text-[#FF4500]",
+    },
+    {
+      title: "Total Classes",
+      value: classes.length.toLocaleString(),
+      change: "",
+      icon: Dumbbell,
+      iconBg: "bg-[#251614]",
+      iconColor: "text-[#FF4500]",
+    },
+    {
+      title: "Total Bookings",
+      value: purchases.length.toLocaleString(),
+      change: `+${newBookings} this week`,
+      icon: BookOpen,
+      iconBg: "bg-[#211714]",
+      iconColor: "text-[#FF4500]",
+    },
+  ];
+
+  const revenueData = useMemo(() => {
+    const revenue = MONTHS.map((month) => ({
+      name: month,
+      revenue: 0,
+    }));
+
+    purchases.forEach((purchase) => {
+      if (!purchase.createdAt) return;
+
+      const month = new Date(purchase.createdAt).getMonth();
+
+      revenue[month].revenue += Number(
+        purchase.amount || purchase.price || 0
+      );
+    });
+
+    return revenue;
+  }, [purchases]);
+
+  const categoryData = useMemo(() => {
+    const categoryMap = {};
+
+    classes.forEach((item) => {
+      if (!item.category) return;
+
+      categoryMap[item.category] =
+        (categoryMap[item.category] || 0) + 1;
+    });
+
+    return Object.entries(categoryMap).map(
+      ([name, value], index) => ({
+        name,
+        value,
+        color: COLORS[index % COLORS.length],
+      })
+    );
+  }, [classes]);
+
+  const maxRevenue =
+    Math.max(...revenueData.map((r) => r.revenue), 1000) + 1000;
+
+  return (
+    <div className="min-h-screen text-white p-8">
+
+      <h1 className="text-3xl font-black tracking-wider uppercase mb-8">
         Admin Control
       </h1>
 
-      {/* Top Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
         {metricData.map((metric, idx) => {
-          const IconComponent = metric.icon;
+          const Icon = metric.icon;
+
           return (
-            <Card 
-              key={idx} 
-              className="w-full bg-[#090A15] border border-[#161826] rounded-2xl p-6 shadow-xl flex-row items-center gap-5"
+            <Card
+              key={idx}
+              className="bg-[#090A15] border border-[#161826] rounded-2xl p-6 flex-row items-center gap-5"
             >
-              <div className={`p-4 rounded-xl shrink-0 ${metric.iconBg} ${metric.iconColor}`}>
-                <IconComponent size={24} />
+              <div
+                className={`p-4 rounded-xl ${metric.iconBg} ${metric.iconColor}`}
+              >
+                <Icon size={24} />
               </div>
-              <div className="flex flex-col">
-                <span className="text-xs font-semibold tracking-wide text-[#565B7F] uppercase">
+
+              <div>
+                <p className="text-xs uppercase text-[#565B7F]">
                   {metric.title}
-                </span>
-                <span className="text-2xl font-black text-white mt-0.5">
+                </p>
+
+                <h2 className="text-3xl font-black mt-1">
                   {metric.value}
-                </span>
+                </h2>
+
                 {metric.change && (
-                  <span className="text-xs font-bold text-[#00E676] mt-1">
+                  <p className="text-xs text-green-400 mt-1">
                     {metric.change}
-                  </span>
+                  </p>
                 )}
               </div>
             </Card>
@@ -89,97 +167,126 @@ const AdminDashboardHomePage = ({user}) => {
         })}
       </div>
 
-      {/* Charts Grid Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        {/* Left Card - Monthly Revenue */}
-        <Card className="lg:col-span-6 bg-[#090A15] border border-[#161826] rounded-2xl p-6 shadow-xl flex flex-col">
-          <h3 className="text-sm font-black uppercase tracking-wider text-white mb-6">
+
+        <Card className="lg:col-span-6 bg-[#090A15] border border-[#161826] rounded-2xl p-6">
+
+          <h3 className="text-sm font-black uppercase mb-5">
             Monthly Revenue
           </h3>
-          <div className="h-64 w-full">
+
+          <div className="h-64">
+
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <AreaChart data={revenueData}>
+
                 <defs>
-                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#FF4500" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#FF4500" stopOpacity={0}/>
+                  <linearGradient
+                    id="revenue"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="5%"
+                      stopColor="#FF4500"
+                      stopOpacity={0.3}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="#FF4500"
+                      stopOpacity={0}
+                    />
                   </linearGradient>
                 </defs>
-                <XAxis 
-                  dataKey="name" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#565B7F', fontSize: 11 }} 
+
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fill: "#666" }}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#565B7F', fontSize: 11 }}
-                  tickFormatter={(v) => `$${v / 1000}k`}
-                  domain={[0, 20000]}
-                  ticks={[0, 5000, 10000, 15000, 20000]}
+
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  domain={[0, maxRevenue]}
+                  tick={{ fill: "#666" }}
                 />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#161826', border: 'none', borderRadius: '8px', color: '#fff' }}
-                  formatter={(value) => [`$${value}`, 'Revenue']}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="revenue" 
-                  stroke="#FF4500" 
-                  strokeWidth={2} 
-                  fillOpacity={1} 
-                  fill="url(#colorRevenue)" 
+
+                <Tooltip />
+
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#FF4500"
+                  fill="url(#revenue)"
+                  strokeWidth={3}
                 />
               </AreaChart>
             </ResponsiveContainer>
+
           </div>
         </Card>
 
-        {/* Right Card - Classes by Category */}
-        <Card className="lg:col-span-6 bg-[#090A15] border border-[#161826] rounded-2xl p-6 shadow-xl flex flex-col justify-between">
-          <h3 className="text-sm font-black uppercase tracking-wider text-white mb-4">
+        <Card className="lg:col-span-6 bg-[#090A15] border border-[#161826] rounded-2xl p-6">
+
+          <h3 className="text-sm font-black uppercase mb-5">
             Classes by Category
           </h3>
-          
-          <div className="h-52 w-full flex items-center justify-center relative">
+
+          <div className="h-56">
+
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
+
                 <Pie
                   data={categoryData}
-                  cx="50%"
-                  cy="50%"
+                  dataKey="value"
                   innerRadius={60}
                   outerRadius={85}
                   paddingAngle={3}
-                  dataKey="value"
                 >
-                  {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
+                  {categoryData.map((item, index) => (
+                    <Cell
+                      key={index}
+                      fill={item.color}
+                    />
                   ))}
                 </Pie>
+
               </PieChart>
             </ResponsiveContainer>
+
           </div>
 
-          {/* Interactive Legend Row */}
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mt-4 text-xs font-semibold tracking-wide text-[#717694]">
-            {categoryData.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <span 
-                  className="w-2.5 h-2.5 rounded-full inline-block" 
-                  style={{ backgroundColor: item.color }} 
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+
+            {categoryData.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 text-xs"
+              >
+                <span
+                  className="w-3 h-3 rounded-full"
+                  style={{
+                    background: item.color,
+                  }}
                 />
-                <span>{item.name}</span>
+
+                {item.name}
               </div>
             ))}
+
           </div>
+
         </Card>
 
       </div>
+
     </div>
-    );
+  );
 };
 
 export default AdminDashboardHomePage;

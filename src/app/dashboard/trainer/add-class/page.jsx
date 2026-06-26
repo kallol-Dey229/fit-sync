@@ -138,6 +138,7 @@ export default function AddClassForm() {
             image: photoUrl, 
             schedule: structuredScheduleArray, 
             role: user?.role,
+            createdAt: new Date().toISOString(),
             isPubliclyVisible: true
         };
 

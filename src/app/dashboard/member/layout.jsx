@@ -8,4 +8,4 @@ const MemberLayout = async({children}) => {
     return children;
 };
 
-export default MemberLayout;
+export default MemberLayout; 

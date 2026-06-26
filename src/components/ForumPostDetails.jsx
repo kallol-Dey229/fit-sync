@@ -40,7 +40,7 @@ export function ForumPostDetails({ post }) {
         >
           {post.role || "null"}
         </Chip>
-        <span>{post.trainerName || "Anonymous"}</span>
+        <span>{post.Name || "Anonymous"}</span>
         <span><Dot className="text-orange-900 font-bold size-9"/></span>
         <span>{formattedDate}</span>
       </div>
