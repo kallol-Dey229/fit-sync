@@ -24,7 +24,7 @@ export default function SignupForm() {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/";
 
-  // Success & Error Messages
+  
   const [success, setSuccess] = useState("");
   const [apiError, setApiError] = useState("");
 
@@ -45,7 +45,7 @@ export default function SignupForm() {
       return;
     }
 
-    // const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
+
 
     try {
       setLoading(true);
@@ -123,10 +123,10 @@ export default function SignupForm() {
             </div>
           )}
 
-          {/* Form */}
+        
           <Form onSubmit={OnSubmit} className="flex flex-col gap-5">
 
-            {/* Name */}
+            
             <TextField isRequired name="name" type="text" className="w-full">
               <Label className="text-gray-300 text-xs font-bold uppercase tracking-wider">
                 Full Name
@@ -138,7 +138,7 @@ export default function SignupForm() {
               <FieldError className="text-xs text-red-400 mt-1" />
             </TextField>
 
-            {/* Image URL */}
+            
             <TextField name="image" type="url" className="w-full">
               <Label className="text-gray-300 text-xs font-bold uppercase tracking-wider">
                 Image URL (optional)
@@ -150,7 +150,7 @@ export default function SignupForm() {
               <FieldError className="text-xs text-red-400 mt-1" />
             </TextField>
 
-            {/* Email */}
+            
             <TextField
               isRequired
               name="email"
@@ -173,7 +173,7 @@ export default function SignupForm() {
               <FieldError className="text-xs text-red-400 mt-1" />
             </TextField>
 
-            {/* Password */}
+          
             <TextField
               isRequired
               name="password"
@@ -209,7 +209,7 @@ export default function SignupForm() {
               <FieldError className="text-xs text-red-400 mt-1" />
             </TextField>
 
-            {/* Confirm Password */}
+           
             <TextField
               isRequired
               name="confirmPassword"
@@ -238,7 +238,7 @@ export default function SignupForm() {
               <FieldError className="text-xs text-red-400 mt-1" />
             </TextField>
 
-            {/* Role Selection */}
+            
             <div className="flex flex-col gap-2 mt-1">
               <Label className="text-gray-300 text-xs font-bold uppercase tracking-wider">Role</Label>
               <RadioGroup defaultValue="member" name="role" orientation="horizontal" onChange={(value) => setRole(value)}>
@@ -246,14 +246,11 @@ export default function SignupForm() {
                   <Radio.Control><Radio.Indicator /></Radio.Control>
                   <Radio.Content><Label className="text-sm font-medium text-gray-200">Member</Label></Radio.Content>
                 </Radio>
-                <Radio value="trainer">
-                  <Radio.Control><Radio.Indicator /></Radio.Control>
-                  <Radio.Content><Label className="text-sm font-medium text-gray-200">Trainer</Label></Radio.Content>
-                </Radio>
+                
               </RadioGroup>
             </div>
 
-            {/* Submit Button */}
+            
             <Button
               type="submit"
               isLoading={loading}
