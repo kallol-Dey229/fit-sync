@@ -61,4 +61,3 @@ const handleStatusCode = res => {
  
     return res.json()
 } 
- 

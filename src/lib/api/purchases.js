@@ -5,11 +5,11 @@ export const createPurchase = async (purchase) => {
 };
  
 export const checkPurchase = async (classId, email) => {
-  return serverFetch(`/api/purchases/check?classId=${classId}&email=${email}`);
+  return protectedFetch(`/api/purchases/check?classId=${classId}&email=${email}`);
 };
  
 export const getUserPurchases = async (email) => {
-  return serverFetch(`/api/purchases?email=${email}`);
+  return protectedFetch(`/api/purchases?email=${email}`);
 };
  
 

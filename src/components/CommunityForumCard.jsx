@@ -7,11 +7,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CommunityForumCard = ({ post }) => {
-  
+
 
   const formattedDate = post.createdAt ? format(new Date(post.createdAt), "MMM d, yyyy") : "Unknown Date";
-  
-  
+
+  const likeCount = Array.isArray(post.likes) ? post.likes.length : 0;
+  const commentCount = post.commentCount || 0;
+
+
 
   return (
     /* CHANGED: Removed max-w-100 and added w-full so all grid column cards match exactly */
@@ -59,11 +62,11 @@ const CommunityForumCard = ({ post }) => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5 hover:text-gray-300 cursor-pointer transition-colors">
               <ThumbsUp className="w-4 h-4" />
-              <span>247</span>
+              <span>{likeCount}</span>
             </div>
             <div className="flex items-center gap-1.5 hover:text-gray-300 cursor-pointer transition-colors">
               <MessageSquare className="w-4 h-4" />
-              <span>34</span>
+              <span>{commentCount}</span>
             </div>
           </div>
 

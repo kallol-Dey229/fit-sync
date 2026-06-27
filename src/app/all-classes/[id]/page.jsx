@@ -14,14 +14,14 @@ export default async function AllClassDetailsPage({ params }) {
 
     const user = await getUserSession();
 
-    // Only check purchase status if a user is signed in
+    
     let alreadyBooked = false;
     if (user?.email) {
         const { purchased } = await checkPurchase(id, user.email);
         alreadyBooked = !!purchased;
     }
 
-    // Dynamic array verification for handling schedule maps safely
+
     const activeSchedule = Array.isArray(classes?.schedule) ? classes.schedule : [];
 
     return (
@@ -71,7 +71,7 @@ export default async function AllClassDetailsPage({ params }) {
                 
                 <div className="lg:col-span-2 flex flex-col gap-6">
                     
-                    {/* About Card Wrapper block using HeroUI v3 declarative style */}
+                  
                     <Card className="bg-[#111116] border border-gray-800 p-6 rounded-2xl gap-3">
                         <Card.Header className="p-0 flex flex-col items-start gap-1">
                             <Card.Title className="text-sm font-bold uppercase tracking-wider text-[#ff5a1f] font-mono flex items-center gap-2">
@@ -83,7 +83,7 @@ export default async function AllClassDetailsPage({ params }) {
                         </p>
                     </Card>
 
-                    {/* Class Information Metrics Data Grid Box */}
+                
                     <Card className="bg-[#111116] border border-gray-800 p-6 rounded-2xl gap-4">
                         <Card.Header className="p-0">
                             <Card.Title className="text-sm font-bold uppercase tracking-wider text-[#ff5a1f] font-mono flex items-center gap-2">
@@ -92,7 +92,7 @@ export default async function AllClassDetailsPage({ params }) {
                         </Card.Header>
 
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-2">
-                            {/* Metric Grid Element item */}
+                           
                             <div className="p-3 bg-[#16161c] border border-gray-900 rounded-xl flex flex-col gap-1">
                                 <div className="flex items-center gap-2 text-gray-500">
                                     <Clock size={14} className="text-[#ff5a1f]" />

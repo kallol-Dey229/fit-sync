@@ -31,4 +31,4 @@ export const requireRole = async (role) => {
         return redirect('/unauthorized');
     }
     return user;
-} 
+}

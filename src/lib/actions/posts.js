@@ -1,20 +1,4 @@
 
-// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-// export const createForumPost = async (data) =>{
-//     const res = await fetch(`${baseUrl}/api/forum`,{
-//         method:'POST',
-//         headers:{
-//             'Content-Type' : 'application/json'
-//         },
-
-//         body:JSON.stringify(data)
-//     });
-
-//     return res.json();
-// }
-
-
 
 'use server';
 
@@ -31,3 +15,7 @@ export const deleteForumPost = async (id) => {
  
     return result;
 };
+
+
+export const voteOnPost = async (postId, likes, dislikes) =>
+    await serverMutation(`/api/forum/${postId}/vote`, { likes, dislikes }, "PATCH");

@@ -27,7 +27,7 @@ const BookNowPage = async ({params}) => {
                             </div>
                             <h3 className="text-xl font-bold text-zinc-100 mb-2">Access Restricted</h3>
                             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                                Only general members can book. Please sign in with a seeker account to proceed.
+                                Only general members can book. Please sign in with a member account to proceed.
                             </p>
 
 

@@ -24,7 +24,7 @@ const CommentDelete = ({ commentId, forumPostId, userId }) => {
 
   return (
     <AlertDialog>
-      <Button variant="light" className="text-red-500 text-xs"
+      <Button variant="light" className="text-red-500 text-xs hover:bg-gray-800"
       >
         Delete
       </Button>
