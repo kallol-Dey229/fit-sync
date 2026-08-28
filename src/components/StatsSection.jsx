@@ -8,7 +8,7 @@ export default function StatsSection() {
         {/* First Stat */}
         <div className="flex flex-col items-center p-6 md:border-r md:border-gray-800">
           <Activity className="w-8 h-8 text-orange-600 mb-4" />
-          <h3 className="text-5xl font-black mb-2">2,400+</h3>
+          <h3 className="text-5xl font-black mb-2">2,500+</h3>
           <p className="text-gray-400 text-sm">Workouts Completed</p>
         </div>
 
