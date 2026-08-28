@@ -8,4 +8,3 @@ export const getForumPosts = (trainerId) =>
 
 export const getForumPostById = (id) =>
     serverFetch(`/api/forum/${id}`); 
-
