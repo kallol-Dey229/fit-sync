@@ -40,7 +40,7 @@ export default function AddForumPost() {
         formData.append('image', file);
 
         try {
-            // Replace with your real IMGBB API key environmental variable injection
+            
             const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API;
             const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
                 method: 'POST',
@@ -68,7 +68,7 @@ export default function AddForumPost() {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        // Validations matching your configuration style
+
         const newErrors = {};
         if (!data.title) newErrors.title = "Post title is required";
         if (!photoUrl) newErrors.image = "Please upload an image.";
