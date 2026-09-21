@@ -44,7 +44,7 @@ const BookedClassesPage = async () => {
                         <span>Action</span>
                     </div>
 
-                    {/* Table rows */}
+                   
                     {purchases.map((purchase) => (
                         <div
                             key={purchase._id}

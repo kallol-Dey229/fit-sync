@@ -243,7 +243,7 @@ export default function AddClassForm() {
                             </Select>
                         </div>
 
-                        {/* Image Upload Input */}
+                        
                         <TextField name="image-upload" className="flex flex-col gap-1.5 w-full">
                             <Label className="text-xs font-semibold tracking-widest text-[#717694] uppercase">Post Image</Label>
                             <label htmlFor="image" className="flex items-center gap-3 cursor-pointer bg-[#1C1E30] border border-[#222538] rounded-xl px-4 py-3 text-sm text-[#717694] hover:bg-[#23273D] transition-colors">

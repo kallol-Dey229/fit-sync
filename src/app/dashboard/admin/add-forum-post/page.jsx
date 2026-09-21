@@ -21,7 +21,7 @@ export default function AddForumPost() {
     const [fileName, setFileName] = useState("No file selected");
     const [isUploading, setIsUploading] = useState(false);
 
-    // 2. Client side Imgbb Upload Handler
+    
     const handlePhotoUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
