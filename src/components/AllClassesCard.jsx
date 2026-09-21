@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const AllClassesCard = ({ classes }) => {
   if (!classes) return null;
-//
+
 
   return (
 

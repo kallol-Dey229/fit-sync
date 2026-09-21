@@ -9,7 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { voteOnPost } from "@/lib/actions/posts";
 
 import toast from "react-hot-toast";
-
+//
 export function ForumPostDetails({ post }) {
   const { data: session } = authClient.useSession();
   const user = session?.user;
