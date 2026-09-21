@@ -49,7 +49,7 @@ export default function Navbar() {
               {open ? <HiX /> : <HiMenu />}
             </button>
 
-            {/* Logo */}
+            
             <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
 
               <Link href="/" className="flex items-center gap-3">
