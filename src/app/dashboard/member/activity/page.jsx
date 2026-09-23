@@ -12,7 +12,7 @@ const MemberActivityPage = async () => {
   ]);
   const favorites = Array.isArray(favoriteResponse) ? favoriteResponse : [];
   const purchases = Array.isArray(purchaseResponse) ? purchaseResponse : [];
-//
+
   return (
     <div className="min-h-screen space-y-8 py-8 text-white">
       <div>
