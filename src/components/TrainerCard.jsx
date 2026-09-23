@@ -45,5 +45,5 @@ const TrainerCard = ({ trainer }) => {
     </article>
   );
 };
-
+//
 export default TrainerCard;

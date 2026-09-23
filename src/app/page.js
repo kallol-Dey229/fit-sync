@@ -41,6 +41,7 @@ export default async function Home() {
       </div>
 
       {/* Our Trainers section */}
+      
       <div className="mt-20">
         <div className="flex items-center justify-between mb-6">
           <div>
