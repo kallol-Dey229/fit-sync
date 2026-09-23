@@ -46,16 +46,16 @@ export const serverMutation = async (path, data, method = 'POST') => {
     });
  
  
-    return handleStatusCode(res);
+    return handleStatusCode(res, { redirectOnError: false });
 }
  
 
  
-const handleStatusCode = res => {
-    if (res.status === 401) {
+const handleStatusCode = (res, options = {}) => {
+    if (options.redirectOnError !== false && res.status === 401) {
         redirect('/unauthorized')
     }
-    else if (res.status === 403) {
+    else if (options.redirectOnError !== false && res.status === 403) {
         redirect('/forbidden');
     }
  

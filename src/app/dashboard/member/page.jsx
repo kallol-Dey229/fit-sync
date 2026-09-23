@@ -1,22 +1,31 @@
 
 import { getFavorites } from '@/lib/api/classes';
+import { getUserPurchases } from '@/lib/api/purchases';
 import { getUserSession } from '@/lib/core/session';
 import { Avatar, Card, Chip } from "@heroui/react";
-import { Bookmark, Heart } from "lucide-react";
+import { Bookmark, ChevronRight, Heart } from "lucide-react";
+import Link from "next/link";
 
 const MemberDashboardPage = async () => {
 
     const user = await getUserSession();
-    const favoriteClasses = await getFavorites(user.id);
+    const [favoriteResponse, purchaseResponse] = await Promise.all([
+        getFavorites(user.id),
+        getUserPurchases(user.email),
+    ]);
 
-
-    const favorites = favoriteClasses.data;
+    const favorites = Array.isArray(favoriteResponse) ? favoriteResponse : [];
+    const purchases = Array.isArray(purchaseResponse) ? purchaseResponse : [];
     
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
     const newSaves = favorites.filter((favorite) => {
         return new Date(favorite.createdAt) >= oneMonthAgo;
+    }).length;
+
+    const newBookings = purchases.filter((purchase) => {
+        return purchase.purchasedAt && new Date(purchase.purchasedAt) >= oneMonthAgo;
     }).length;
 
     return (
@@ -43,11 +52,11 @@ const MemberDashboardPage = async () => {
                             </p>
 
                             <h2 className="text-4xl font-bold text-white">
-                                3
+                                {purchases.length}
                             </h2>
 
                             <p className="mt-1 text-green-400">
-                                +1 this month
+                                +{newBookings} this month
                             </p>
                         </div>
 
@@ -67,7 +76,7 @@ const MemberDashboardPage = async () => {
                             </p>
 
                             <h2 className="text-4xl font-bold text-white">
-                                {favoriteClasses.data.length}
+                                {favorites.length}
                             </h2>
 
                             <p className="mt-1 text-green-400">
@@ -79,6 +88,14 @@ const MemberDashboardPage = async () => {
                 </Card>
 
             </div>
+
+            <Link
+                href="/dashboard/member/activity"
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-[#0b0d26] px-5 py-4 text-sm font-semibold text-gray-300 transition-colors hover:border-orange-500/50 hover:text-white"
+            >
+                <span>View your recent activity</span>
+                <ChevronRight size={18} className="text-orange-500" />
+            </Link>
 
             {/* Profile */}
             <Card className="bg-[#0b0d26] border border-white/10 p-8">

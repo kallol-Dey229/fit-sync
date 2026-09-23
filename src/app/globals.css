@@ -2,3 +2,95 @@
 
 
 @import "../../node_modules/@heroui/styles/dist/index.css";
+
+:root {
+	--page-bg: #070b17;
+	--page-text: #f8fafc;
+	--nav-bg: rgba(7, 11, 23, 0.95);
+	--nav-border: rgba(255, 255, 255, 0.1);
+	--nav-muted: #8b8ca7;
+	--nav-heading: #ffffff;
+	--mobile-nav-bg: #101522;
+}
+
+html[data-theme="light"] {
+	--page-bg: #f7f8fa;
+	--page-text: #17202d;
+	--nav-bg: rgba(255, 255, 255, 0.94);
+	--nav-border: rgba(23, 32, 45, 0.12);
+	--nav-muted: #5e6878;
+	--nav-heading: #17202d;
+	--mobile-nav-bg: #ffffff;
+}
+
+body {
+	background: var(--page-bg);
+	color: var(--page-text);
+	transition: background-color 180ms ease, color 180ms ease;
+}
+
+.theme-nav {
+	background: var(--nav-bg);
+	border-bottom: 1px solid var(--nav-border);
+}
+
+.theme-muted {
+	color: var(--nav-muted);
+}
+
+.theme-muted:hover {
+	color: var(--nav-heading);
+}
+
+.theme-heading {
+	color: var(--nav-heading);
+}
+
+.theme-mobile-menu {
+	background: var(--mobile-nav-bg);
+	border-color: var(--nav-border);
+}
+
+.theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 54px;
+	height: 32px;
+	padding: 0;
+	color: var(--nav-muted);
+	cursor: pointer;
+	border: 1px solid var(--nav-border);
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--nav-heading) 8%, transparent);
+	transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.theme-toggle:hover {
+	border-color: #ff5a1f;
+}
+
+.theme-toggle-track {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 40px;
+}
+
+.theme-toggle-thumb {
+	position: absolute;
+	left: 0;
+	display: grid;
+	place-items: center;
+	width: 21px;
+	height: 21px;
+	color: #ffffff;
+	background: #ff5a1f;
+	border-radius: 50%;
+	transition: transform 180ms ease;
+}
+
+html[data-theme="light"] .theme-toggle-thumb {
+	transform: translateX(19px);
+}

@@ -7,7 +7,7 @@ const FavoritesPage = async () => {
     const user = await getUserSession();
     const userId = user.id; 
     const response = await getFavorites(userId);
-    const favoritesList = response?.data || [];
+    const favoritesList = Array.isArray(response) ? response : [];
     
     return (
         <div className="space-y-8 mt-5 md:mt-10">

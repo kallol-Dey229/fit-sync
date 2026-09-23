@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { House, Bookmark, Heart, Medal, Persons, PersonPlus, CreditCard, FileText, LayoutHeaderSideContent} from "@gravity-ui/icons";
 
-import { Plus, Dumbbell } from "lucide-react";
+import { Activity, Plus, Dumbbell } from "lucide-react";
 
 import { Avatar, Button, Chip, Drawer, Spinner} from "@heroui/react";
 
@@ -53,6 +53,16 @@ export function DashboardSidebar() {
             label: "Favorites",
         },
         {
+            icon: Activity,
+            href: "/dashboard/member/activity",
+            label: "Activity",
+        },
+        {
+            icon: Dumbbell,
+            href: "/dashboard/member/recommended",
+            label: "Recommended",
+        },
+        {
             icon: Medal,
             href: "/dashboard/member/apply-trainer",
             label: "Apply as Trainer",
@@ -76,6 +86,11 @@ export function DashboardSidebar() {
             icon: Dumbbell,
             href: "/dashboard/trainer/my-classes",
             label: "My Classes",
+        },
+        {
+            icon: Persons,
+            href: "/dashboard/trainer/students",
+            label: "Students",
         },
         {
             icon: Plus,

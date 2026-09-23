@@ -45,21 +45,27 @@ const AdminDashboardHomePage = ({
   classes = [],
   purchases = [],
 }) => {
+  const safeUsers = Array.isArray(users) ? users : [];
+  const safeClasses = Array.isArray(classes) ? classes : [];
+  const safePurchases = Array.isArray(purchases) ? purchases : [];
+
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-  const newUsers = users.filter(
-    (user) => new Date(user.createdAt) >= oneWeekAgo
-  ).length;
+  const newUsers = safeUsers.filter((user) => {
+    const date = user?.createdAt || user?.created_at;
+    return date && new Date(date) >= oneWeekAgo;
+  }).length;
 
-  const newBookings = purchases.filter(
-    (purchase) => new Date(purchase.createdAt) >= oneWeekAgo
-  ).length;
+  const newBookings = safePurchases.filter((purchase) => {
+    const date = purchase?.createdAt || purchase?.purchasedAt || purchase?.created_at;
+    return date && new Date(date) >= oneWeekAgo;
+  }).length;
 
   const metricData = [
     {
       title: "Total Users",
-      value: users.length.toLocaleString(),
+      value: safeUsers.length.toLocaleString(),
       change: `+${newUsers} this week`,
       icon: Users,
       iconBg: "bg-[#1C121A]",
@@ -67,7 +73,7 @@ const AdminDashboardHomePage = ({
     },
     {
       title: "Total Classes",
-      value: classes.length.toLocaleString(),
+      value: safeClasses.length.toLocaleString(),
       change: "",
       icon: Dumbbell,
       iconBg: "bg-[#251614]",
@@ -75,7 +81,7 @@ const AdminDashboardHomePage = ({
     },
     {
       title: "Total Bookings",
-      value: purchases.length.toLocaleString(),
+      value: safePurchases.length.toLocaleString(),
       change: `+${newBookings} this week`,
       icon: BookOpen,
       iconBg: "bg-[#211714]",
@@ -89,24 +95,24 @@ const AdminDashboardHomePage = ({
       revenue: 0,
     }));
 
-    purchases.forEach((purchase) => {
-      if (!purchase.createdAt) return;
+    safePurchases.forEach((purchase) => {
+      const date = purchase?.createdAt || purchase?.purchasedAt || purchase?.created_at;
+      if (!date) return;
 
-      const month = new Date(purchase.createdAt).getMonth();
-
+      const month = new Date(date).getMonth();
       revenue[month].revenue += Number(
-        purchase.amount || purchase.price || 0
+        purchase.amount ?? purchase.price ?? 0
       );
     });
 
     return revenue;
-  }, [purchases]);
+  }, [safePurchases]);
 
   const categoryData = useMemo(() => {
     const categoryMap = {};
 
-    classes.forEach((item) => {
-      if (!item.category) return;
+    safeClasses.forEach((item) => {
+      if (!item?.category) return;
 
       categoryMap[item.category] =
         (categoryMap[item.category] || 0) + 1;
@@ -119,7 +125,7 @@ const AdminDashboardHomePage = ({
         color: COLORS[index % COLORS.length],
       })
     );
-  }, [classes]);
+  }, [safeClasses]);
 
   const maxRevenue =
     Math.max(...revenueData.map((r) => r.revenue), 1000) + 1000;

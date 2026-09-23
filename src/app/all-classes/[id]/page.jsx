@@ -11,6 +11,8 @@ export default async function AllClassDetailsPage({ params }) {
     
     const { id } = await params;
     const classes = await getClassById(id);
+    const classImage = classes?.image && String(classes.image).trim() ? classes.image : "/assets/banner-photo1.jpg";
+    const trainerImage = classes?.trainerImage && String(classes.trainerImage).trim() ? classes.trainerImage : "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg";
 
     const user = await getUserSession();
 
@@ -39,7 +41,7 @@ export default async function AllClassDetailsPage({ params }) {
 
             
             <div className="relative w-full h-70 sm:h-90 rounded-3xl overflow-hidden mb-8 border border-gray-900 shadow-2xl">
-                <Image src={classes.image} alt={classes.title} height={200} width={200} className="w-full h-full object-cover brightness-[0.4]"></Image>
+                <Image src={classImage} alt={classes.title} height={200} width={200} className="w-full h-full object-cover brightness-[0.4]"></Image>
                 <div className="absolute inset-0 bg-linear-to-t from-[#09090b] via-transparent to-transparent" />
                 
                 {/* Overlay Text Details Row */}
@@ -201,7 +203,7 @@ export default async function AllClassDetailsPage({ params }) {
                         <Avatar aria-label={`${classes?.trainerName || 'Trainer'}'s profile view`} className="size-10 rounded-xl border border-gray-800 shrink-0">
                             <Avatar.Image
                                 alt={classes?.trainerName || "Trainer"}
-                                src={classes?.trainerImage || "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"}
+                                src={trainerImage}
                             />
                             <Avatar.Fallback className="text-xs font-mono bg-orange-600/20 text-orange-500">
                                 {(classes?.trainerName || "TR").substring(0, 2).toUpperCase()}

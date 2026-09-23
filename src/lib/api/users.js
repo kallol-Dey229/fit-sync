@@ -1,17 +1,18 @@
-
-
 'use server';
 
 import { protectedFetch, serverMutation } from "../core/server";
 
 export const getAllUsers = async () =>
-    await protectedFetch("/api/user");
+    {
+        const result = await protectedFetch("/api/user");
+        return Array.isArray(result) ? result : (result?.data || result?.users || []);
+    };
 
 export const setUserStatus = async (id, status) =>
    await serverMutation(`/api/user/${id}/status`,{ status },"PATCH");
 
 
-
+//
 
 export const promoteToAdmin = async (id) =>
 

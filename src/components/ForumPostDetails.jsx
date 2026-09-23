@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 export function ForumPostDetails({ post }) {
   const { data: session } = authClient.useSession();
   const user = session?.user;
+  const safePhoto = post?.photo && String(post.photo).trim() ? post.photo : "/assets/banner-photo1.jpg";
 
   const [likes, setLikes] = useState(
     Array.isArray(post?.likes) ? post.likes : []
@@ -79,9 +80,10 @@ export function ForumPostDetails({ post }) {
 
       <div className="relative w-full h-70 md:h-105 rounded-2xl overflow-hidden mb-6">
         <Image
-          src={post.photo}
+          src={safePhoto}
           alt={post.title}
           fill
+          sizes="(max-width: 768px) 100vw, 80vw"
           className="object-cover pointer-events-none select-none"
           priority
         />

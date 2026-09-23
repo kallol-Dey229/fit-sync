@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { ThumbsUp, MessageSquare } from "lucide-react";
 
 const LatestForumCard = ({ post }) => {
+    const safePhoto = post?.photo && String(post.photo).trim() ? post.photo : "/assets/banner-photo1.jpg";
     const formattedDate = post.createdAt
         ? format(new Date(post.createdAt), "MMM d, yyyy")
         : "Unknown Date";
@@ -20,9 +21,10 @@ const LatestForumCard = ({ post }) => {
         >
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg">
                 <Image
-                    src={post.photo}
+                    src={safePhoto}
                     alt={post.title || "Forum post"}
                     fill
+                    sizes="(max-width: 768px) 100vw, 96px"
                     className="object-cover"
                 />
             </div>

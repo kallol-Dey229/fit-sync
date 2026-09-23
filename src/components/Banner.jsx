@@ -82,6 +82,7 @@ export default function Banner() {
                                 src="/assets/banner-photo1.jpg"
                                 alt="Fitness"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                                 className="object-cover hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-black/20" />
@@ -93,6 +94,7 @@ export default function Banner() {
                                 src="/assets/photo.jpg"
                                 alt="Training"
                                 fill
+                                sizes="(max-width: 1024px) 50vw, 25vw"
                                 className="object-cover hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-black/20" />
@@ -104,6 +106,7 @@ export default function Banner() {
                                 src="/assets/banner-photo4.jpg"
                                 alt="Workout"
                                 fill
+                                sizes="(max-width: 1024px) 50vw, 25vw"
                                 className="object-cover hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-black/20" />

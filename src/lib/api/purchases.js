@@ -5,16 +5,18 @@ export const createPurchase = async (purchase) => {
 };
  
 export const checkPurchase = async (classId, email) => {
-  return protectedFetch(`/api/purchases/check?classId=${classId}&email=${email}`);
+  const result = await protectedFetch(`/api/purchases/check?classId=${classId}&email=${email}`);
+  return result?.data || result || { purchased: false };
 };
  
 export const getUserPurchases = async (email) => {
-  return protectedFetch(`/api/purchases?email=${email}`);
+  const result = await protectedFetch(`/api/purchases?email=${email}`);
+  return Array.isArray(result) ? result : (result?.data || []);
 };
  
-
-
-
 export const getAllPurchases = async () => {
-  return protectedFetch("/api/purchases/all");
+  const result = await protectedFetch("/api/purchases/all");
+  return Array.isArray(result) ? result : (result?.data || []);
 };
+
+//

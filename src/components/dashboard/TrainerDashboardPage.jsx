@@ -1,19 +1,27 @@
 "use client"
 import { Avatar, Card, Chip } from "@heroui/react";
-import { Bookmark, Heart } from "lucide-react";
+import { Bookmark, ChevronRight, FileText, Users } from "lucide-react";
+import Link from "next/link";
 
-const TrainerDashboardPage = ({user, classes}) => {
+const TrainerDashboardPage = ({ user, classes = [], forumPosts = [] }) => {
 
-    const thisMonth = new Date().getMonth();
+    const now = new Date();
+    const thisMonth = now.getMonth();
+    const thisYear = now.getFullYear();
 
 
     const newClassesThisMonth = classes.filter(c => {
 
         if (!c.createdAt) return false;
 
-        return new Date(c.createdAt).getMonth() === thisMonth;
+        const createdAt = new Date(c.createdAt);
+        return createdAt.getMonth() === thisMonth && createdAt.getFullYear() === thisYear;
 
     }).length;
+
+    const studentsEnrolled = classes.reduce((total, item) => (
+        total + Number(item.bookings ?? item.totalBookings ?? 0)
+    ), 0);
 
 
     return (
@@ -25,7 +33,7 @@ const TrainerDashboardPage = ({user, classes}) => {
             </h1>
 
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-3">
 
                 <Card className="bg-[#0b0d26] border border-white/10 p-6">
                     <div className="flex items-center gap-5">
@@ -55,20 +63,44 @@ const TrainerDashboardPage = ({user, classes}) => {
                     <div className="flex items-center gap-5">
 
                         <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-600/10">
-                            <Heart className="text-orange-500" size={26} />
+                            <FileText className="text-orange-500" size={26} />
                         </div>
 
                         <div>
                             <p className="text-lg text-gray-400">
-                                Total Student Enrolled
+                                Forum Posts
                             </p>
 
                             <h2 className="text-4xl font-bold text-white">
-                                5
+                                {forumPosts.length}
                             </h2>
 
-                            <p className="mt-1 text-green-400">
-                                2 new saves
+                            <p className="mt-1 text-gray-500">
+                                Published by you
+                            </p>
+                        </div>
+
+                    </div>
+                </Card>
+
+                <Card className="border border-white/10 bg-[#0b0d26] p-4 sm:p-6">
+                    <div className="flex items-center gap-5">
+
+                        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-600/10">
+                            <Users className="text-orange-500" size={26} />
+                        </div>
+
+                        <div>
+                            <p className="text-lg text-gray-400">
+                                Students Enrolled
+                            </p>
+
+                            <h2 className="text-4xl font-bold text-white">
+                                {studentsEnrolled}
+                            </h2>
+
+                            <p className="mt-1 text-gray-500">
+                                Across your classes
                             </p>
                         </div>
 
@@ -76,6 +108,45 @@ const TrainerDashboardPage = ({user, classes}) => {
                 </Card>
 
             </div>
+
+            <Card className="border border-white/10 bg-[#0b0d26] p-6 sm:p-8">
+                <div className="mb-6 flex items-center justify-between gap-4">
+                    <div>
+                        <h2 className="text-2xl font-bold text-white">Recent Classes</h2>
+                        <p className="mt-1 text-sm text-gray-500">Your latest training sessions</p>
+                    </div>
+                    <Link
+                        href="/dashboard/trainer/my-classes"
+                        className="flex shrink-0 items-center gap-1 text-sm font-semibold text-orange-500 transition-colors hover:text-orange-400"
+                    >
+                        View all
+                        <ChevronRight size={16} />
+                    </Link>
+                </div>
+
+                {classes.length > 0 ? (
+                    <div className="divide-y divide-white/10">
+                        {classes.slice(0, 4).map((item) => (
+                            <div key={item._id || item.id} className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0">
+                                <div className="min-w-0">
+                                    <h3 className="truncate font-semibold text-white">{item.title || "Untitled class"}</h3>
+                                    <p className="mt-1 text-xs text-gray-500">
+                                        {item.category || "General"} {item.difficulty ? `· ${item.difficulty}` : ""}
+                                    </p>
+                                </div>
+                                <div className="shrink-0 text-right">
+                                    <p className="font-mono text-sm text-orange-500">{item.bookings || item.totalBookings || 0}</p>
+                                    <p className="text-[10px] uppercase tracking-wider text-gray-500">bookings</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="rounded-xl border border-dashed border-white/10 px-4 py-8 text-center text-sm text-gray-500">
+                        You have not created any classes yet.
+                    </p>
+                )}
+            </Card>
 
             
             <Card className="bg-[#0b0d26] border border-white/10 p-8">

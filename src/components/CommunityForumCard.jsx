@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const CommunityForumCard = ({ post }) => {
 
-
+  const safePhoto = post?.photo && String(post.photo).trim() ? post.photo : "/assets/banner-photo1.jpg";
   const formattedDate = post.createdAt ? format(new Date(post.createdAt), "MMM d, yyyy") : "Unknown Date";
 
   const likeCount = Array.isArray(post.likes) ? post.likes.length : 0;
@@ -23,7 +23,7 @@ const CommunityForumCard = ({ post }) => {
       {/* Image Area Container */}
       <div className="relative h-60 w-full overflow-hidden shrink-0">
         <Image 
-          src={post.photo} 
+          src={safePhoto} 
           alt={post.title || "Forum cover"} 
           height={240} 
           width={400} 

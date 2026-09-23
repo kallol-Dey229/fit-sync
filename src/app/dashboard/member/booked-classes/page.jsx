@@ -9,7 +9,7 @@ const BookedClassesPage = async () => {
     const user = await getUserSession();
 
     if (!user) {
-        redirect("/auth/signin/?redirect=/booked-classes");
+        redirect("/auth/signin/?redirect=/dashboard/member/booked-classes");
     }
 
     const purchases = await getUserPurchases(user.email);

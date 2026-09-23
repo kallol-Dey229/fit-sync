@@ -8,6 +8,7 @@ import Link from "next/link";
 const AllClassesCard = ({ classes }) => {
   if (!classes) return null;
 
+  const classImage = classes.image && String(classes.image).trim() ? classes.image : "/assets/banner-photo1.jpg";
 
   return (
 
@@ -16,7 +17,7 @@ const AllClassesCard = ({ classes }) => {
 
       <div className="relative h-56 md:h-auto w-full md:w-75 shrink-0 overflow-hidden">
         <Image
-          src={classes.image}
+          src={classImage}
           alt={classes.title || "Class cover image"}
           height={300}
           width={400}

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import { Flame } from "lucide-react";
+import { startTransition, useEffect, useState } from "react";
+import { Flame, Moon, Sun } from "lucide-react";
 import { HiMenu, HiX } from "react-icons/hi";
 
 import { authClient } from "@/lib/auth-client";
@@ -19,15 +19,33 @@ export default function Navbar() {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
 
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "All Classes", href: "/all-classes" },
     { name: "Community Forum", href: "/community-forum" },
+    { name: "About Us", href: "/about-us" },
   ];
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("fitsync-theme");
+    const preferredTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+    startTransition(() => setTheme(preferredTheme));
+    document.documentElement.dataset.theme = preferredTheme;
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+
+    setTheme(nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+    window.localStorage.setItem("fitsync-theme", nextTheme);
+  };
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -36,7 +54,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-[#070b17]/95 backdrop-blur-md border-b border-white/10">
+      <nav className="theme-nav sticky top-0 z-50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4">
 
           <div className="relative h-20 flex items-center justify-between">
@@ -44,7 +62,8 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setOpen(!open)}
-              className="md:hidden text-3xl text-white cursor-pointer"
+                className="theme-muted md:hidden text-3xl cursor-pointer"
+                aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             >
               {open ? <HiX /> : <HiMenu />}
             </button>
@@ -59,7 +78,7 @@ export default function Navbar() {
                 </div>
 
                 <h1 className="text-3xl font-extrabold tracking-wider">
-                  <span className="text-white">FIT</span>
+                  <span className="theme-heading">FIT</span>
                   <span className="text-[#ff5a1f]">SYNC</span>
                 </h1>
 
@@ -77,7 +96,7 @@ export default function Navbar() {
                   className={`font-semibold transition-all duration-300 ${
                     pathname === item.href
                       ? "text-[#ff5a1f]"
-                      : "text-[#8b8ca7] hover:text-white"
+                      : "theme-muted"
                   }`}
                 >
                   {item.name}
@@ -88,6 +107,23 @@ export default function Navbar() {
 
             {/* Right Side */}
             <div className="flex items-center gap-3">
+
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="theme-toggle"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                aria-pressed={theme === "light"}
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                <span className="theme-toggle-track">
+                  <Sun size={13} aria-hidden="true" />
+                  <Moon size={13} aria-hidden="true" />
+                  <span className="theme-toggle-thumb">
+                    {theme === "dark" ? <Moon size={12} aria-hidden="true" /> : <Sun size={12} aria-hidden="true" />}
+                  </span>
+                </span>
+              </button>
 
               {user ? (
                 <>
@@ -172,7 +208,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/auth/signin"
-                    className="hidden sm:block text-[#8b8ca7] hover:text-white transition"
+                    className="theme-muted hidden sm:block transition"
                   >
                     Sign In
                   </Link>
@@ -195,7 +231,7 @@ export default function Navbar() {
         {/* Mobile Menu */}
 
         {open && (
-          <div className="md:hidden bg-[#101522] border-t border-white/10 shadow-xl">
+          <div className="theme-mobile-menu md:hidden border-t shadow-xl">
 
             <div className="px-5 py-5 flex flex-col gap-4">
 
