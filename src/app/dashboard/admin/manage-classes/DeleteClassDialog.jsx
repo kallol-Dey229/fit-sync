@@ -10,7 +10,7 @@ const DeleteClassDialog = ({ classItem, onDeleted }) => {
 
     const handleDelete = async () => {
         const result = await deleteClass(classItem._id);
-//
+
         if (result?.error) {
             toast.error(result.message || result.error || "Couldn't delete the class.");
             return;
