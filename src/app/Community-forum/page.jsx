@@ -5,7 +5,7 @@ import { getAllForumPosts } from "@/lib/api/posts";
 const CommunityForumPage = async () => {
 
     const forumAllPosts = await getAllForumPosts();
-
+//
     return (
        <div className="mt-10 ml-5">
             <div >
