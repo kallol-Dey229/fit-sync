@@ -12,7 +12,6 @@ export const setUserStatus = async (id, status) =>
    await serverMutation(`/api/user/${id}/status`,{ status },"PATCH");
 
 
-//
 
 export const promoteToAdmin = async (id) =>
 

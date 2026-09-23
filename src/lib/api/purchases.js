@@ -18,5 +18,3 @@ export const getAllPurchases = async () => {
   const result = await protectedFetch("/api/purchases/all");
   return Array.isArray(result) ? result : (result?.data || []);
 };
-
-//

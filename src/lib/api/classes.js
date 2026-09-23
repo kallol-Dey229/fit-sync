@@ -19,5 +19,3 @@ export const getFavorites = async (userId) => {
     const result = await protectedFetch(`/api/favorites?userId=${userId}`);
     return Array.isArray(result) ? result : (result?.data || []);
 };
-
-//
