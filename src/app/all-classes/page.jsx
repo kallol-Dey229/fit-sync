@@ -1,7 +1,7 @@
 import AllClassesGrid from "@/components/AllClassesGrid";
 import { getAllClass } from "@/lib/api/classes";
 
-
+//
 
 const AllClassesPage = async () => {
 
